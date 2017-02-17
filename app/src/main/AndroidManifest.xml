@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.nikkialonzo.grabahand">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_nikki1"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".hButton" />
+        <activity android:name=".fButton" />
+        <activity android:name=".pButton" />
+        <activity android:name=".mButton" />
+        <activity android:name=".Introduction" />
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".Buttons" />
+        <activity android:name=".hchoice"></activity>
+    </application>
+
+</manifest>

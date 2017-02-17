@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="firestation">FireStation</string>
+    <string name="hospital">Hospital</string>
+    <string name="mechanic">Mechanic</string>
+    <string name="police">Police</string>
+    <string name="address">Address:</string>
+    <string name="email_address">Email Address:</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="name">Name:</string>
+    <string name="contact_person">Contact Person</string>
+    <string name="Address">Address:</string>
+    <string name="Email_address">Email Address:</string>
+    <string name="Phone_number">Phone Number:</string>
+    <string name="Name">Name:</string>
+    <string name="Please_fill_up">Please Fill UP</string>
+</resources>
