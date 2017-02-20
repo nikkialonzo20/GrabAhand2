@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
     private Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,60 +27,41 @@ public class MainActivity extends AppCompatActivity {
         user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-                boolean signedUp = sp.getBoolean("SIGN_UP", false);
-                Intent intent = new Intent();
-                if (signedUp) {
-                    intent.setClass(MainActivity.this, Buttons.class);
-                } else {
-                    intent.setClass(MainActivity.this, Introduction.class);
-                }
-                startActivity(intent);
-                finish();
+                Intent Buttons = new Intent(v.getContext(), Buttons.class);
+                startActivityForResult(Buttons , 0);
             }
         });
-
 
         Button admin = (Button) findViewById(R.id.btnAdmin);
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-                boolean status = sp.getBoolean("LOGGED_IN", false);
-                Intent intent = new Intent();
-
-                intent.setClass(MainActivity.this, AdminLogin.class);
-                /*if (status) {
-                } else {
-                    intent.setClass(MainActivity.this, Introduction.class);
-                }*/
-                startActivity(intent);
-                finish();
+                Intent Buttons = new Intent(v.getContext(), AdminActivity.class);
+                startActivityForResult(Buttons , 0);
             }
         });
 
+        ImageButton imageButton2 = (ImageButton) findViewById(R.id.btnSignUp);
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Introduction = new Intent(v.getContext(), Introduction.class);
+                startActivityForResult(Introduction , 0);
+            }
+        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean login = sp.getBoolean("LOGGED_IN", false);
-        boolean buttons = sp.getBoolean("FROM_BUTTONS", false);
-
-        Intent intent = new Intent();
-        if (login) {
-            if (buttons) {
-                intent.setClass(MainActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-
+        boolean status = sp.getBoolean("SIGN_UP", false);
+        if(status){
+            Intent intent = new Intent();
             intent.setClass(MainActivity.this, Buttons.class);
             startActivity(intent);
             finish();
         }
-
     }
 
     @Override

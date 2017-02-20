@@ -62,7 +62,6 @@
     <string-array name="hospital_list">
         <item>Chong Hua Hospital</item>
         <item>Philippine Red Cross</item>
-        <item>Sacred Heart Hospital</item>
         <item>Perpetual Succour Hospital</item>
         <item>Cebu Doctors University Hospital</item>
     </string-array>
@@ -143,6 +142,4 @@
     <string name="title_activity_hchoice">hchoice</string>
 
     <string name="action_settings">Settings</string>
-    <string name="emergency">EMERGENCY</string>
-    <string name="respond">RESPOND</string>
 </resources>
