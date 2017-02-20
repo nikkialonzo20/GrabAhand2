@@ -15,14 +15,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".hButton" />
-        <activity android:name=".fButton" />
-        <activity android:name=".pButton" />
-        <activity android:name=".mButton" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        AIzaSyB3hOycWBEQOGOMx4GSfVnCUfwM7mtTejQ
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity android:name=".HospitalActivity" />
+        <activity android:name=".FireActivity" />
+        <activity android:name=".PoliceActivity" />
+        <activity android:name=".MechanicActivity" />
         <activity android:name=".Introduction" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".Buttons" />
-        <activity android:name=".hchoice"></activity>
+        <activity android:name=".hchoice" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".MapActivity" />
     </application>
 
 </manifest>
