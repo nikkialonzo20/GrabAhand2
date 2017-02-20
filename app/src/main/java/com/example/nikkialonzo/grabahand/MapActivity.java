@@ -19,7 +19,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     private SupportMapFragment mapFragment;
 
     @Override
@@ -37,9 +36,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng sydney = new LatLng(10.3403, 123.9416);
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Mandaue"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng SWU = new LatLng(10.3040, 123.8895);
+        googleMap.addMarker(new MarkerOptions().position(SWU)
+                .title("Southwestern University"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SWU, 15.00f));
     }
 }
