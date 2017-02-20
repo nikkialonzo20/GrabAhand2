@@ -188,13 +188,13 @@
 
 
     <Button
-        android:id="@+id/btnSignUp"
+        android:id="@+id/btnSaveSettings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/button"
-        android:text="Sign Up"
+        android:text="Update Settings"
         android:textColor="#FFFFFF" />
 
 </RelativeLayout>
