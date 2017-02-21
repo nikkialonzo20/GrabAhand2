@@ -31,7 +31,6 @@
         <activity android:name=".PoliceActivity" />
         <activity android:name=".MechanicActivity" />
         <activity android:name=".Introduction" />
-        <activity android:name=".SignupActivity" />
         <activity android:name=".Buttons" />
         <activity android:name=".hchoice" />
         <activity android:name=".AdminActivity" />
