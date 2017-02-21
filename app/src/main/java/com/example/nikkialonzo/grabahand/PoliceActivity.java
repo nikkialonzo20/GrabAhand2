@@ -24,7 +24,7 @@ public class PoliceActivity extends AppCompatActivity {
 
         list = (Spinner) findViewById(R.id.dropStations);
         ArrayAdapter<CharSequence> countryAdapter = ArrayAdapter.createFromResource(getApplicationContext(),
-                R.array.police_list, R.layout.support_simple_spinner_dropdown_item);
+                R.array.police_list, R.layout.my_spinner_dropdown);
         list.setAdapter(countryAdapter);
 
 
