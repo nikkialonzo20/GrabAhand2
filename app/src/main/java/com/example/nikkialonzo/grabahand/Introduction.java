@@ -42,7 +42,7 @@ public class Introduction extends AppCompatActivity {
 
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("SIGN_UP", true);
+                editor.putBoolean("LOGGED_IN", true);
 
                 editor.putString("NAME", name.getText().toString());
                 editor.putString("PHONE", phone.getText().toString());

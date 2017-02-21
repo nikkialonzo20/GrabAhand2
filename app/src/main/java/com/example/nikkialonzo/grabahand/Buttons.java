@@ -1,7 +1,9 @@
 package com.example.nikkialonzo.grabahand;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class Buttons extends AppCompatActivity {
+
 
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -69,13 +72,20 @@ public class Buttons extends AppCompatActivity {
             }
         });
 
-        Button test = (Button) findViewById(R.id.test);
 
-        test.setOnClickListener(new View.OnClickListener() {
+
+        Button logOut = (Button) findViewById(R.id.btnLogout);
+
+        logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), MapActivity.class);
-                startActivity(intent);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("LOGGED_IN", false);
+                editor.apply();
+
+                Intent Buttons = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(Buttons);
                 finish();
             }
         });
