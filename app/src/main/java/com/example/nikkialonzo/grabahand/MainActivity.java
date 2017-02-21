@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
     private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +28,16 @@ public class MainActivity extends AppCompatActivity {
         user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Buttons = new Intent(v.getContext(), Buttons.class);
-                startActivityForResult(Buttons , 0);
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+                boolean status = sp.getBoolean("SIGN_UP", false);
+                Intent intent = new Intent();
+                if (status) {
+                    intent.setClass(MainActivity.this, Buttons.class);
+                } else {
+                    intent.setClass(MainActivity.this, Introduction.class);
+                }
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -36,8 +45,17 @@ public class MainActivity extends AppCompatActivity {
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Buttons = new Intent(v.getContext(), AdminActivity.class);
-                startActivityForResult(Buttons , 0);
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+                boolean status = sp.getBoolean("LOGGED_IN", false);
+                Intent intent = new Intent();
+
+                if (status) {
+                    intent.setClass(MainActivity.this, MapActivity.class);
+                } else {
+                    intent.setClass(MainActivity.this, Introduction.class);
+                }
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -46,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent Introduction = new Intent(v.getContext(), Introduction.class);
-                startActivityForResult(Introduction , 0);
+                startActivityForResult(Introduction, 0);
             }
         });
     }
@@ -55,13 +73,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean status = sp.getBoolean("SIGN_UP", false);
-        if(status){
-            Intent intent = new Intent();
+        boolean login = sp.getBoolean("LOGGED_IN", false);
+        boolean buttons = sp.getBoolean("FROM_BUTTONS", false);
+
+        Intent intent = new Intent();
+        if (login) {
+            if (buttons) {
+                intent.setClass(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
             intent.setClass(MainActivity.this, Buttons.class);
             startActivity(intent);
             finish();
         }
+
     }
 
     @Override

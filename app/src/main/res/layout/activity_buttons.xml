@@ -69,8 +69,10 @@
         android:layout_toEndOf="@+id/center" />
 
     <Button
-        android:id="@+id/test"
+        android:text="Log Out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="map"/>
+        android:layout_below="@+id/btnSettings"
+        android:layout_toEndOf="@+id/btnFire"
+        android:id="@+id/btnLogout" />
 </RelativeLayout>
