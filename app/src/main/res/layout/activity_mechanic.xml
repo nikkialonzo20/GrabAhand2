@@ -12,41 +12,34 @@
     tools:context="com.example.nikkialonzo.grabahand.FireActivity">
 
     <TextView
+        android:id="@+id/label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="48sp"
-        android:text="Mechanic Emergency"
-        android:textColor="#000000"
+        android:layout_above="@+id/dropStations"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/btnImmediate"
-        android:layout_marginBottom="36dp"
-        android:textAlignment="center"/>
-
-    <Button
-        android:id="@+id/btnImmediate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button"
-        android:textColor="#FFFFFF"
-        android:text="Immediate Help"
-        android:layout_centerInParent="true"/>
+        android:layout_marginBottom="24dp"
+        android:text="Mechanic Emergency"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="48sp" />
 
     <Spinner
         android:id="@+id/dropStations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnImmediate"
-        android:layout_marginTop="48dp"/>
+        android:layout_centerInParent="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"/>
 
     <Button
         android:id="@+id/btnSpecific"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button"
-        android:text="Request This Station"
         android:layout_below="@id/dropStations"
         android:layout_centerHorizontal="true"
-        android:paddingStart="16dp"
+        android:background="@drawable/button"
         android:paddingEnd="16dp"
-        android:textColor="#FFFFFF"/>
+        android:paddingStart="16dp"
+        android:text="Request This Station"
+        android:textColor="#FFFFFF" />
 </RelativeLayout>
