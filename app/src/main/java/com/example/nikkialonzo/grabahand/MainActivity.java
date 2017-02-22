@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-                boolean status = sp.getBoolean("SIGN_UP", false);
+                boolean signedUp = sp.getBoolean("SIGN_UP", false);
                 Intent intent = new Intent();
-                if (status) {
+                if (signedUp) {
                     intent.setClass(MainActivity.this, Buttons.class);
                 } else {
                     intent.setClass(MainActivity.this, Introduction.class);
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
 
         Button admin = (Button) findViewById(R.id.btnAdmin);
         admin.setOnClickListener(new View.OnClickListener() {
@@ -59,14 +60,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton imageButton2 = (ImageButton) findViewById(R.id.btnSignUp);
-        imageButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Introduction = new Intent(v.getContext(), Introduction.class);
-                startActivityForResult(Introduction, 0);
-            }
-        });
     }
 
     @Override
