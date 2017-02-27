@@ -1,29 +1,27 @@
 package com.example.nikkialonzo.grabahand;
 
-import java.util.ArrayList;
-
 /**
  * Created by JONAS on 2/27/2017.
  */
 
 public class RetrieveJobResults {
 
-    private int success;
-    private ArrayList<Job> job;
+    private int id;
+    private Job job;
 
-    public int getSuccess() {
-        return success;
+    public int getId() {
+        return id;
     }
 
-    public void setSuccess(int success) {
-        this.success = success;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public ArrayList<Job> getJobs() {
+    public Job getJob() {
         return job;
     }
 
-    public void setJobs(ArrayList<Job> job) {
+    public void setJob(Job job) {
         this.job = job;
     }
 }

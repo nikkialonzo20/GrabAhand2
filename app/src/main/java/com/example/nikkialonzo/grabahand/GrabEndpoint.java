@@ -4,8 +4,7 @@ package com.example.nikkialonzo.grabahand;
  * Created by JONAS on 2/27/2017.
  */
 
-
-import java.util.ArrayList;
+import android.app.job.JobInfo;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -26,7 +25,7 @@ public interface GrabEndpoint {
     @GET("/grab/jobs/{job_id}")
     Call<RetrieveJobResults> retrieveJobs(@Path("job_id") int id);
 
-    @POST("/grab/login-admin")
+    @POST("/grab/login")
     Call<LoginResult> loginUser(@Body LoginInfo loginInfo);
 
     @GET("/grab/accept-job/{id}")
