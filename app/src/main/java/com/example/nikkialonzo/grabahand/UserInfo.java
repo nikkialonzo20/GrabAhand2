@@ -8,10 +8,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserInfo {
 
-    private int address;
+    private String address;
     private String name;
     private String email;
-    private String phone;
+    private int phone;
     private String token;
 
     @SerializedName("cp_name")
@@ -21,9 +21,9 @@ public class UserInfo {
     private String cpAddress;
 
     @SerializedName("cp_phone")
-    private String cpPhone;
+    private int cpPhone;
 
-    public UserInfo(String name, String email, String phone, int address, String token, String cpName, String cpAddress, String cpPhone) {
+    public UserInfo(String name, String email, int phone, String address, String token, String cpName, String cpAddress, int cpPhone) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -50,19 +50,19 @@ public class UserInfo {
         this.email = email;
     }
 
-    public String getPhone() {
+    public int getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(int phone) {
         this.phone = phone;
     }
 
-    public int getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(int address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -90,11 +90,11 @@ public class UserInfo {
         this.cpAddress = cpAddress;
     }
 
-    public String getCpPhone() {
+    public int getCpPhone() {
         return cpPhone;
     }
 
-    public void setCpPhone(String cpPhone) {
+    public void setCpPhone(int cpPhone) {
         this.cpPhone = cpPhone;
     }
 }
