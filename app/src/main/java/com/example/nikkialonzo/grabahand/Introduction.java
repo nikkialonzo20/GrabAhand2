@@ -10,16 +10,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Introduction extends AppCompatActivity {
 
     private Context context;
+    private GrabEndpoint apiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         context = getApplicationContext();
+        apiService = new RestClient().getApiService();
 
 
         Button signUp = (Button) findViewById(R.id.btnSignUp);
@@ -70,11 +78,36 @@ public class Introduction extends AppCompatActivity {
                     editor.putString("CP_ADDRESS", cpAddress.getText().toString());
 
                     editor.apply();
+                    Toast.makeText(context, "rawr",Toast.LENGTH_SHORT).show();
 
+                    String token =sharedPreferences.getString("TOKEN","");
 
-                    Intent Buttons = new Intent(v.getContext(), Buttons.class);
-                    startActivityForResult(Buttons , 0);
-                    finish();
+                    UserInfo userInfo = new UserInfo(name.getText().toString(),email.getText().toString(),
+                            Integer.valueOf(phone.getText().toString()), address.getText().toString(),token,cpName.getText().toString(),
+                            cpAddress.getText().toString(),Integer.valueOf(cpPhone.getText().toString()));
+                    Call<UserRegisterResult> call = apiService.registerUser(userInfo);
+                    call.enqueue(new Callback<UserRegisterResult>() {
+                        @Override
+                        public void onResponse(Call<UserRegisterResult> call, Response<UserRegisterResult> response) {
+                            UserRegisterResult userRegisterResult = response.body();
+                            try {
+                                if (userRegisterResult.getSuccess() == 1) {
+                                    Toast.makeText(context, "test",Toast.LENGTH_SHORT).show();
+                                    Intent Buttons = new Intent(context, Buttons.class);
+                                    startActivityForResult(Buttons , 0);
+                                    finish();
+
+                                }
+                            } catch (Exception e) {
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<UserRegisterResult> call, Throwable t) {
+                            Toast.makeText(context, "aw",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 }
             }
         });

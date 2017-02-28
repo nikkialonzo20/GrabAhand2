@@ -4,7 +4,6 @@ package com.example.nikkialonzo.grabahand;
  * Created by JONAS on 2/27/2017.
  */
 
-import android.app.job.JobInfo;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
