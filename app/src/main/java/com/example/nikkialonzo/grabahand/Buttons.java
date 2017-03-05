@@ -1,11 +1,17 @@
 package com.example.nikkialonzo.grabahand;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,76 +27,164 @@ public class Buttons extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buttons);
 
-        ImageButton btnHospital = (ImageButton) findViewById(R.id.btnHospital);
-        btnHospital.setOnClickListener(new View.OnClickListener() {
+        Button immediateHospital = (Button) findViewById(R.id.btnImmediateHospital);
+        immediateHospital.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent hButton = new Intent(v.getContext(), HospitalActivity.class);
-                startActivity(hButton);
+            public void onClick(View view) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        Buttons.this);
+
+                alertDialogBuilder.setTitle("Hospital Request Sent!");
+                alertDialogBuilder.setMessage("A request has been sent to the nearest hospital.")
+                        .setCancelable(false)
+                        .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+            }
+        });
+
+        Button specificHospital = (Button) findViewById(R.id.btnSpecificHospital);
+        specificHospital.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Buttons.this, HospitalActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
 
-        ImageButton btnFire = (ImageButton) findViewById(R.id.btnFire);
-        btnFire.setOnClickListener(new View.OnClickListener() {
+        Button immediateFire = (Button) findViewById(R.id.btnImmediateFire);
+        immediateFire.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent fButton = new Intent(v.getContext(), FireActivity.class);
-                startActivity(fButton);
-                finish();
+            public void onClick(View view) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        Buttons.this);
+
+                alertDialogBuilder.setTitle("Fireman Request Sent!");
+                alertDialogBuilder.setMessage("A request has been sent to the nearest fire station.")
+                        .setCancelable(false)
+                        .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
             }
         });
 
-
-        ImageButton btnPolice = (ImageButton) findViewById(R.id.btnPolice);
-        btnPolice.setOnClickListener(new View.OnClickListener() {
+        Button specificFire = (Button) findViewById(R.id.btnSpecificFire);
+        specificFire.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent pButton = new Intent(v.getContext(), PoliceActivity.class);
-                startActivity(pButton);
-                finish();
-            }
-        });
-
-        ImageButton btnMechanic = (ImageButton) findViewById(R.id.btnMechanic);
-        btnMechanic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mButton = new Intent(v.getContext(), MechanicActivity.class);
-                startActivity(mButton);
-                finish();
-            }
-        });
-
-        ImageButton btnSettings = (ImageButton) findViewById(R.id.btnSettings);
-        btnSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SettingsActivity.class);
+            public void onClick(View view) {
+                Intent intent = new Intent(Buttons.this, FireActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
 
-
-        Button logOut = (Button) findViewById(R.id.btnLogout);
-
-        logOut.setOnClickListener(new View.OnClickListener() {
+        Button immediatePolice = (Button) findViewById(R.id.btnImmediatePolice);
+        immediatePolice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("LOGGED_IN", false);
-                editor.apply();
 
-                Intent Buttons = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(Buttons);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        Buttons.this);
+
+                alertDialogBuilder.setTitle("Police Request Sent!");
+                alertDialogBuilder.setMessage("A request has been sent to the nearest police station.")
+                        .setCancelable(false)
+                        .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+            }
+        });
+
+        Button specificPolice = (Button) findViewById(R.id.btnSpecificPolice);
+        specificPolice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Buttons.this, PoliceActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
+
+        Button immediateMechanic = (Button) findViewById(R.id.btnImmediateMechanic);
+        immediateMechanic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        Buttons.this);
+
+                alertDialogBuilder.setTitle("Mechanic Request Sent!");
+                alertDialogBuilder.setMessage("A request has been sent to the nearest mechanic.")
+                        .setCancelable(false)
+                        .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+            }
+        });
+
+        Button specificMechanic = (Button) findViewById(R.id.btnSpecificMechanic);
+        specificMechanic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Buttons.this, MechanicActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        // Inflate options
+        inflater.inflate(R.menu.buttons_menu, menu);
+        return true;
+    }
 
     @Override
     public void onBackPressed() {
@@ -112,5 +206,20 @@ public class Buttons extends AppCompatActivity {
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent();
+        switch (item.getItemId()) {
+            case (R.id.settings):
+                intent.setClass(Buttons.this, SettingsActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

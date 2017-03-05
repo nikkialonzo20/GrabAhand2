@@ -26,32 +26,6 @@ public class FireActivity extends AppCompatActivity {
                 R.array.fire_list, R.layout.my_spinner_dropdown);
         list.setAdapter(countryAdapter);
 
-
-        Button emergencyButton = (Button) findViewById(R.id.btnImmediate);
-        emergencyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        FireActivity.this);
-
-                alertDialogBuilder.setTitle("Request Sent!");
-                alertDialogBuilder.setMessage("A request has been sent to the nearest fire station.")
-                        .setCancelable(false)
-                        .setNeutralButton("Okay",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-
-                // show it
-                alertDialog.show();
-            }
-        });
-
         Button specificStation = (Button) findViewById(R.id.btnSpecific);
         specificStation.setOnClickListener(new View.OnClickListener() {
             @Override

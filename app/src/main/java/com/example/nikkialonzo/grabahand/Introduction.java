@@ -40,27 +40,42 @@ public class Introduction extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("LOGGED_IN", true);
+                if(name.getText().toString().equals("")){
+                    name.setError("Please fill up field");
+                }
+                else if(phone.getText().toString().equals("")){
+                    phone.setError("Please fill up field");
+                }
+                else if(email.getText().toString().equals("")){
+                    email.setError("Please fill up field");
+                }
+                else if(address.getText().toString().equals("")){
+                    address.setError("Please fill up field");
+                }
+                else {
 
-                editor.putString("NAME", name.getText().toString());
-                editor.putString("PHONE", phone.getText().toString());
-                editor.putString("EMAIL", email.getText().toString());
-                editor.putString("ADDRESS", address.getText().toString());
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("LOGGED_IN", true);
+
+                    editor.putString("NAME", name.getText().toString());
+                    editor.putString("PHONE", phone.getText().toString());
+                    editor.putString("EMAIL", email.getText().toString());
+                    editor.putString("ADDRESS", address.getText().toString());
 
 
-                editor.putString("CP_NAME", cpName.getText().toString());
-                editor.putString("CP_PHONE", cpPhone.getText().toString());
-                editor.putString("CP_EMAIL", cpEmail.getText().toString());
-                editor.putString("CP_ADDRESS", cpAddress.getText().toString());
+                    editor.putString("CP_NAME", cpName.getText().toString());
+                    editor.putString("CP_PHONE", cpPhone.getText().toString());
+                    editor.putString("CP_EMAIL", cpEmail.getText().toString());
+                    editor.putString("CP_ADDRESS", cpAddress.getText().toString());
 
-                editor.apply();
+                    editor.apply();
 
 
-                Intent Buttons = new Intent(v.getContext(), Buttons.class);
-                startActivityForResult(Buttons , 0);
-                finish();
+                    Intent Buttons = new Intent(v.getContext(), Buttons.class);
+                    startActivityForResult(Buttons , 0);
+                    finish();
+                }
             }
         });
     }
