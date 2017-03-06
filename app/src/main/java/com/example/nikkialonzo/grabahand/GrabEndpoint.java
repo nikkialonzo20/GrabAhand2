@@ -26,7 +26,7 @@ public interface GrabEndpoint {
     @GET("/grab/jobs/{job_id}")
     Call<RetrieveJobResults> retrieveJobs(@Path("job_id") int id);
 
-    @POST("/grab/login")
+    @POST("/grab/login-admin")
     Call<LoginResult> loginUser(@Body LoginInfo loginInfo);
 
     @GET("/grab/accept-job/{id}")
