@@ -17,15 +17,27 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Buttons extends AppCompatActivity {
 
 
     private boolean doubleBackToExitPressedOnce = false;
+    private GrabEndpoint apiService;
+    private int userId;
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buttons);
+
+        apiService = new RestClient().getApiService();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Buttons.this);
+        userId = sharedPreferences.getInt("USER_ID", 0);
+        address = sharedPreferences.getString("CP_ADDRESS", "");
 
         Button immediateHospital = (Button) findViewById(R.id.btnImmediateHospital);
         immediateHospital.setOnClickListener(new View.OnClickListener() {
@@ -34,7 +46,6 @@ public class Buttons extends AppCompatActivity {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         Buttons.this);
-
                 alertDialogBuilder.setTitle("Hospital Request Sent!");
                 alertDialogBuilder.setMessage("A request has been sent to the nearest hospital.")
                         .setCancelable(false)
@@ -46,9 +57,31 @@ public class Buttons extends AppCompatActivity {
 
                 // create alert dialog
                 AlertDialog alertDialog = alertDialogBuilder.create();
-
                 // show it
                 alertDialog.show();
+
+                JobInfo jobInfo = new JobInfo(userId, 1,10.3040, 123.8895 ,address);
+                Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
+                call.enqueue(new Callback<SubmitJobResult>() {
+                    @Override
+                    public void onResponse(Call<SubmitJobResult> call, Response<SubmitJobResult> response) {
+                        SubmitJobResult submitJobResult = response.body();
+                        try {
+                            if (submitJobResult.getSuccess() == 1) {
+                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SubmitJobResult> call, Throwable t) {
+                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 
@@ -84,6 +117,28 @@ public class Buttons extends AppCompatActivity {
 
                 // show it
                 alertDialog.show();
+
+                JobInfo jobInfo = new JobInfo(userId, 2,10.3040, 123.8895 ,address);
+                Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
+                call.enqueue(new Callback<SubmitJobResult>() {
+                    @Override
+                    public void onResponse(Call<SubmitJobResult> call, Response<SubmitJobResult> response) {
+                        SubmitJobResult submitJobResult = response.body();
+                        try {
+                            if (submitJobResult.getSuccess() == 1) {
+                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SubmitJobResult> call, Throwable t) {
+                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -120,6 +175,28 @@ public class Buttons extends AppCompatActivity {
 
                 // show it
                 alertDialog.show();
+
+                JobInfo jobInfo = new JobInfo(userId, 3,10.3040, 123.8895 ,address);
+                Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
+                call.enqueue(new Callback<SubmitJobResult>() {
+                    @Override
+                    public void onResponse(Call<SubmitJobResult> call, Response<SubmitJobResult> response) {
+                        SubmitJobResult submitJobResult = response.body();
+                        try {
+                            if (submitJobResult.getSuccess() == 1) {
+                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SubmitJobResult> call, Throwable t) {
+                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -155,6 +232,28 @@ public class Buttons extends AppCompatActivity {
 
                 // show it
                 alertDialog.show();
+
+                JobInfo jobInfo = new JobInfo(userId, 4,10.3040, 123.8895 ,address);
+                Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
+                call.enqueue(new Callback<SubmitJobResult>() {
+                    @Override
+                    public void onResponse(Call<SubmitJobResult> call, Response<SubmitJobResult> response) {
+                        SubmitJobResult submitJobResult = response.body();
+                        try {
+                            if (submitJobResult.getSuccess() == 1) {
+                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SubmitJobResult> call, Throwable t) {
+                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
