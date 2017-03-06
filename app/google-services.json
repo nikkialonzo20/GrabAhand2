@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "35789819751",
-    "firebase_url": "https://grabahand-8a172.firebaseio.com",
-    "project_id": "grabahand-8a172",
-    "storage_bucket": "grabahand-8a172.appspot.com"
+    "project_number": "119843859881",
+    "firebase_url": "https://grabahand2.firebaseio.com",
+    "project_id": "grabahand2",
+    "storage_bucket": "grabahand2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:35789819751:android:adb7dacab70b6d2e",
+        "mobilesdk_app_id": "1:119843859881:android:adb7dacab70b6d2e",
         "android_client_info": {
           "package_name": "com.example.nikkialonzo.grabahand"
         }
       },
       "oauth_client": [
         {
-          "client_id": "35789819751-k922lalo834fcb5r2mdf6hrnmsqoojlm.apps.googleusercontent.com",
+          "client_id": "119843859881-3dio81aq8ul7nblgv0e2be1j4lel8d41.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDxS_ULz9GuuhERO0F2VLyWZkPkRCw2Kfk"
+          "current_key": "AIzaSyD-qM1HX76ivUhmP3Z4KKMBB6F58GUeX5I"
         }
       ],
       "services": {
@@ -29,8 +29,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119843859881-3dio81aq8ul7nblgv0e2be1j4lel8d41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
