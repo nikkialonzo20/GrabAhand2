@@ -50,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
                 boolean status = sp.getBoolean("LOGGED_IN", false);
                 Intent intent = new Intent();
 
-                if (status) {
-                    intent.setClass(MainActivity.this, MapActivity.class);
+                intent.setClass(MainActivity.this, AdminLogin.class);
+                /*if (status) {
                 } else {
                     intent.setClass(MainActivity.this, Introduction.class);
-                }
+                }*/
                 startActivity(intent);
                 finish();
             }
