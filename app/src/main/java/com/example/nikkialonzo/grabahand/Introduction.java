@@ -63,7 +63,7 @@ public class Introduction extends AppCompatActivity {
                 else {
 
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    final SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("LOGGED_IN", true);
 
                     editor.putString("NAME", name.getText().toString());
@@ -77,8 +77,6 @@ public class Introduction extends AppCompatActivity {
                     editor.putString("CP_EMAIL", cpEmail.getText().toString());
                     editor.putString("CP_ADDRESS", cpAddress.getText().toString());
 
-                    editor.apply();
-
                     String token =sharedPreferences.getString("TOKEN","");
 
                     UserInfo userInfo = new UserInfo(name.getText().toString(),email.getText().toString(),
@@ -91,7 +89,7 @@ public class Introduction extends AppCompatActivity {
                             UserRegisterResult userRegisterResult = response.body();
                             try {
                                 if (userRegisterResult.getSuccess() == 1) {
-                                    Toast.makeText(context, "test",Toast.LENGTH_SHORT).show();
+                                    editor.putInt("USER_ID", userRegisterResult.getUserId());
                                     Intent Buttons = new Intent(context, Buttons.class);
                                     startActivityForResult(Buttons , 0);
                                     finish();
@@ -99,11 +97,13 @@ public class Introduction extends AppCompatActivity {
                                 }
                             } catch (Exception e) {
                             }
+                            editor.apply();
                         }
 
                         @Override
                         public void onFailure(Call<UserRegisterResult> call, Throwable t) {
                             Toast.makeText(context, "aw",Toast.LENGTH_SHORT).show();
+                            editor.apply();
                         }
                     });
 
