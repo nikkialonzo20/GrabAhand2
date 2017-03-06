@@ -78,7 +78,6 @@ public class Introduction extends AppCompatActivity {
                     editor.putString("CP_ADDRESS", cpAddress.getText().toString());
 
                     editor.apply();
-                    Toast.makeText(context, "rawr",Toast.LENGTH_SHORT).show();
 
                     String token =sharedPreferences.getString("TOKEN","");
 
