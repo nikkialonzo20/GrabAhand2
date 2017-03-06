@@ -33,7 +33,6 @@
         <activity android:name=".Introduction" />
         <activity android:name=".Buttons" />
         <activity android:name=".hchoice" />
-        <activity android:name=".AdminActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".MapActivity" />
     </application>
