@@ -79,6 +79,7 @@ public class Introduction extends AppCompatActivity {
 
                     String token =sharedPreferences.getString("TOKEN","");
 
+                    editor.apply();
                     UserInfo userInfo = new UserInfo(name.getText().toString(),email.getText().toString(),
                             Integer.valueOf(phone.getText().toString()), address.getText().toString(),token,cpName.getText().toString(),
                             cpAddress.getText().toString(),Integer.valueOf(cpPhone.getText().toString()));
