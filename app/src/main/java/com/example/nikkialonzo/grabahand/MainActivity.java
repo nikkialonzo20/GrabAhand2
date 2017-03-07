@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
 
+
         Button user = (Button) findViewById(R.id.btnUser);
         user.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-                boolean status = sp.getBoolean("LOGGED_IN", false);
+                boolean status = sp.getBoolean("LOGGED_IN_ADMIN", false);
                 Intent intent = new Intent();
 
                 if (status) {
                     intent.setClass(MainActivity.this, MapActivity.class);
                 } else {
-                    intent.setClass(MainActivity.this, Introduction.class);
+                    intent.setClass(MainActivity.this, AdminLogin.class);
                 }
                 startActivity(intent);
                 finish();
@@ -66,16 +67,20 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         boolean login = sp.getBoolean("LOGGED_IN", false);
+        boolean status = sp.getBoolean("LOGGED_IN_ADMIN", false);
         boolean buttons = sp.getBoolean("FROM_BUTTONS", false);
 
         Intent intent = new Intent();
-        if (login) {
+        if (status) {
+            intent.setClass(MainActivity.this, MapActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (login) {
             if (buttons) {
                 intent.setClass(MainActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
-
             intent.setClass(MainActivity.this, Buttons.class);
             startActivity(intent);
             finish();

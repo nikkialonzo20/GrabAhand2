@@ -147,4 +147,6 @@
     <string name="title_activity_hchoice">hchoice</string>
 
     <string name="action_settings">Settings</string>
+    <string name="emergency">EMERGENCY</string>
+    <string name="respond">RESPOND</string>
 </resources>
