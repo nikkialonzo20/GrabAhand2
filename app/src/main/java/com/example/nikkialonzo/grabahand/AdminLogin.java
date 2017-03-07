@@ -1,5 +1,6 @@
 package com.example.nikkialonzo.grabahand;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,7 +40,7 @@ public class AdminLogin extends AppCompatActivity {
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {/*
                 LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString());
                 Call<LoginResult> call = apiService.loginUser(loginInfo);
                 call.enqueue(new Callback<LoginResult>() {
@@ -57,7 +58,10 @@ public class AdminLogin extends AppCompatActivity {
                                 editor.putString("INSTITUTION_NAME", loginResult.getAdmin().getInstitutionName());
                                 editor.putInt("JOB_ID", loginResult.getAdmin().getJobId());
                                 editor.apply();
-                                Toast.makeText(AdminLogin.this, "Success",Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(AdminLogin.this, MapActivity.class);
+                                startActivity(intent);
+                                finish();
                             }else{
                                 Toast.makeText(AdminLogin.this, loginResult.getMsg() ,Toast.LENGTH_SHORT).show();
                             }
@@ -69,9 +73,25 @@ public class AdminLogin extends AppCompatActivity {
                     public void onFailure(Call<LoginResult> call, Throwable t) {
                         Toast.makeText(AdminLogin.this, "Login Failed.",Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("LOGGED_IN_ADMIN", true);
+                editor.apply();
+                editor.commit();
+
+                Intent intent = new Intent(AdminLogin.this, MapActivity.class);
+                startActivity(intent);
+                finish();
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AdminLogin.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -55,9 +55,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-        String name = "Name: ";
-        String number = "Phone: ";
-        String email = "Email: ";
+        String name = "Name: John Doe";
+        String number = "Phone: 0943 943 0943";
+        String email = "Email: john@doe.com";
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
         dialog.setTitle("EMERGENCY");
