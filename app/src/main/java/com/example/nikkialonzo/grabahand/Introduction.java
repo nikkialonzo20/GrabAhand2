@@ -9,12 +9,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Introduction extends AppCompatActivity {
 
     private Context context;
+    private GrabEndpoint apiService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +108,7 @@ public class Introduction extends AppCompatActivity {
                             try {
                                 if (userRegisterResult.getSuccess() == 1) {
                                     editor.putInt("USER_ID", userRegisterResult.getUserId());
-                                    Intent Buttons = new Intent(context, com.example.nikkialonzo.grabahand.Buttons.class);
+                                    Intent Buttons = new Intent(context, Buttons.class);
                                     startActivityForResult(Buttons , 0);
                                     finish();
 
@@ -115,7 +120,7 @@ public class Introduction extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<UserRegisterResult> call, Throwable t) {
-                            Toast.makeText(context, "aw",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "aw", Toast.LENGTH_SHORT).show();
                             editor.apply();
                         }
                     });

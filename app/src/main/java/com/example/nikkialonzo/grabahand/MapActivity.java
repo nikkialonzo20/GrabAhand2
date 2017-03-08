@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private SupportMapFragment mapFragment;
     private GrabEndpoint apiService;
     private SharedPreferences sharedPreferences;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -190,5 +192,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Toast.makeText(MapActivity.this, "lease try again",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        // Check if user has pressed back button once
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        // Sets boolean to true when user presses back button
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+
+        // System waits for 2 seconds before setting boolean value to false again
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }
