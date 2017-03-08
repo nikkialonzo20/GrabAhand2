@@ -59,6 +59,17 @@ public class Introduction extends AppCompatActivity {
                 }
                 else if(address.getText().toString().equals("")){
                     address.setError("Please fill up field");
+                }else if(cpName.getText().toString().equals("")){
+                    cpName.setError("Please fill up field");
+                }
+                else if(cpPhone.getText().toString().equals("")){
+                    cpPhone.setError("Please fill up field");
+                }
+                else if(cpEmail.getText().toString().equals("")){
+                    cpEmail.setError("Please fill up field");
+                }
+                else if(cpAddress.getText().toString().equals("")){
+                    cpAddress.setError("Please fill up field");
                 }
                 else {
 

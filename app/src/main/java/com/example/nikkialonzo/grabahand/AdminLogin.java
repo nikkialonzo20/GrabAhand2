@@ -1,5 +1,6 @@
 package com.example.nikkialonzo.grabahand;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -62,6 +63,7 @@ public class AdminLogin extends AppCompatActivity {
                                 Toast.makeText(AdminLogin.this, loginResult.getMsg() ,Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
@@ -73,5 +75,11 @@ public class AdminLogin extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AdminLogin.this, MainActivity.class));
+        finish();
     }
 }

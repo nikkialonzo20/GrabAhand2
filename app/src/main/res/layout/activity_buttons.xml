@@ -51,7 +51,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/button"
-                    android:text="Immediate Help" />
+                    android:text="Immediate Help"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnSpecificHospital"
@@ -59,7 +60,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/btnImmediateHospital"
                     android:background="@drawable/button"
-                    android:text="Choose a hospital" />
+                    android:text="Choose a hospital"
+                    android:textColor="#FFFFFF" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -94,7 +96,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/button"
-                    android:text="Immediate Help" />
+                    android:text="Immediate Help"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnSpecificFire"
@@ -102,7 +105,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/btnImmediateFire"
                     android:background="@drawable/button"
-                    android:text="Choose a fire station" />
+                    android:text="Choose a fire station"
+                    android:textColor="#FFFFFF" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
@@ -146,7 +150,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/button"
-                    android:text="Immediate Help" />
+                    android:text="Immediate Help"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnSpecificPolice"
@@ -154,7 +159,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/btnImmediatePolice"
                     android:background="@drawable/button"
-                    android:text="Choose a police station" />
+                    android:text="Choose a police station"
+                    android:textColor="#FFFFFF" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -190,7 +196,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/button"
-                    android:text="Immediate Help" />
+                    android:text="Immediate Help"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnSpecificMechanic"
@@ -198,7 +205,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/btnImmediateMechanic"
                     android:background="@drawable/button"
-                    android:text="Choose a mechanic" />
+                    android:text="Choose a mechanic"
+                    android:textColor="#FFFFFF" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
