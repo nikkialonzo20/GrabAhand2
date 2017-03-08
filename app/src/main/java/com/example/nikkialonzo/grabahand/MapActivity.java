@@ -80,11 +80,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng SWU = new LatLng(10.3020, 123.8918);
+       /* LatLng SWU = new LatLng(10.3020, 123.8918);
         googleMap.addMarker(new MarkerOptions().position(SWU)
                 .title("Southwestern University"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SWU, 15.00f));
-
+        */
         googleMap.setOnMarkerClickListener(this);
     }
 
