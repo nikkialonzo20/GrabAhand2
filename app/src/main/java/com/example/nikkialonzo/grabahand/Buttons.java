@@ -13,24 +13,46 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Buttons extends AppCompatActivity {
 
 
+    // Declare properties
+    Button immediateHospital;
+    Button specificHospital;
+    Button immediateFire;
+    Button specificFire;
+    Button immediatePolice;
+    Button specificPolice;
+    Button immediateMechanic;
+    Button specificMechanic;
+
     private boolean doubleBackToExitPressedOnce = false;
+    private GrabEndpoint apiService;
+    private int userId;
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buttons);
 
-        Button immediateHospital = (Button) findViewById(R.id.btnImmediateHospital);
+        apiService = new RestClient().getApiService();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Buttons.this);
+        userId = sharedPreferences.getInt("USER_ID", 0);
+        address = sharedPreferences.getString("CP_ADDRESS", "");
+
+        // Bind properties to their views and set their on click listeners
+        immediateHospital = (Button) findViewById(R.id.btnImmediateHospital);
         immediateHospital.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         Buttons.this);
-
                 alertDialogBuilder.setTitle("Hospital Request Sent!");
                 alertDialogBuilder.setMessage("A request has been sent to the nearest hospital.")
                         .setCancelable(false)
@@ -42,13 +64,35 @@ public class Buttons extends AppCompatActivity {
 
                 // create alert dialog
                 AlertDialog alertDialog = alertDialogBuilder.create();
-
                 // show it
                 alertDialog.show();
+
+                JobInfo jobInfo = new JobInfo(userId, 1,10.3040, 123.8895 ,address);
+                Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
+                call.enqueue(new Callback<SubmitJobResult>() {
+                    @Override
+                    public void onResponse(Call<SubmitJobResult> call, Response<SubmitJobResult> response) {
+                        SubmitJobResult submitJobResult = response.body();
+                        try {
+                            if (submitJobResult.getSuccess() == 1) {
+                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SubmitJobResult> call, Throwable t) {
+                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 
-        Button specificHospital = (Button) findViewById(R.id.btnSpecificHospital);
+        specificHospital = (Button) findViewById(R.id.btnSpecificHospital);
         specificHospital.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +102,7 @@ public class Buttons extends AppCompatActivity {
             }
         });
 
-        Button immediateFire = (Button) findViewById(R.id.btnImmediateFire);
+        immediateFire = (Button) findViewById(R.id.btnImmediateFire);
         immediateFire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,10 +124,32 @@ public class Buttons extends AppCompatActivity {
 
                 // show it
                 alertDialog.show();
+
+                JobInfo jobInfo = new JobInfo(userId, 2,10.3040, 123.8895 ,address);
+                Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
+                call.enqueue(new Callback<SubmitJobResult>() {
+                    @Override
+                    public void onResponse(Call<SubmitJobResult> call, Response<SubmitJobResult> response) {
+                        SubmitJobResult submitJobResult = response.body();
+                        try {
+                            if (submitJobResult.getSuccess() == 1) {
+                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SubmitJobResult> call, Throwable t) {
+                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
-        Button specificFire = (Button) findViewById(R.id.btnSpecificFire);
+        specificFire = (Button) findViewById(R.id.btnSpecificFire);
         specificFire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +160,7 @@ public class Buttons extends AppCompatActivity {
         });
 
 
-        Button immediatePolice = (Button) findViewById(R.id.btnImmediatePolice);
+        immediatePolice = (Button) findViewById(R.id.btnImmediatePolice);
         immediatePolice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,10 +182,32 @@ public class Buttons extends AppCompatActivity {
 
                 // show it
                 alertDialog.show();
+
+                JobInfo jobInfo = new JobInfo(userId, 3,10.3040, 123.8895 ,address);
+                Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
+                call.enqueue(new Callback<SubmitJobResult>() {
+                    @Override
+                    public void onResponse(Call<SubmitJobResult> call, Response<SubmitJobResult> response) {
+                        SubmitJobResult submitJobResult = response.body();
+                        try {
+                            if (submitJobResult.getSuccess() == 1) {
+                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SubmitJobResult> call, Throwable t) {
+                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
-        Button specificPolice = (Button) findViewById(R.id.btnSpecificPolice);
+        specificPolice = (Button) findViewById(R.id.btnSpecificPolice);
         specificPolice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +217,7 @@ public class Buttons extends AppCompatActivity {
             }
         });
 
-        Button immediateMechanic = (Button) findViewById(R.id.btnImmediateMechanic);
+        immediateMechanic = (Button) findViewById(R.id.btnImmediateMechanic);
         immediateMechanic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,10 +239,32 @@ public class Buttons extends AppCompatActivity {
 
                 // show it
                 alertDialog.show();
+
+                JobInfo jobInfo = new JobInfo(userId, 4,10.3040, 123.8895 ,address);
+                Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
+                call.enqueue(new Callback<SubmitJobResult>() {
+                    @Override
+                    public void onResponse(Call<SubmitJobResult> call, Response<SubmitJobResult> response) {
+                        SubmitJobResult submitJobResult = response.body();
+                        try {
+                            if (submitJobResult.getSuccess() == 1) {
+                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SubmitJobResult> call, Throwable t) {
+                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
-        Button specificMechanic = (Button) findViewById(R.id.btnSpecificMechanic);
+        specificMechanic = (Button) findViewById(R.id.btnSpecificMechanic);
         specificMechanic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

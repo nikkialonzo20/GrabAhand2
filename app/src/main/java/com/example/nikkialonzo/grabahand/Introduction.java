@@ -20,6 +20,7 @@ public class Introduction extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         context = getApplicationContext();
+        apiService = new RestClient().getApiService();
 
 
         Button signUp = (Button) findViewById(R.id.btnSignUp);
@@ -40,6 +41,13 @@ public class Introduction extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // Validate fields if empty or not. Cannot proceed if empty
+                validateBeforeLogin();
+            }
+
+            private void validateBeforeLogin() {
+
+                // Check empty fields
                 if(name.getText().toString().equals("")){
                     name.setError("Please fill up field");
                 }
@@ -51,11 +59,23 @@ public class Introduction extends AppCompatActivity {
                 }
                 else if(address.getText().toString().equals("")){
                     address.setError("Please fill up field");
+                }else if(cpName.getText().toString().equals("")){
+                    cpName.setError("Please fill up field");
                 }
+                else if(cpPhone.getText().toString().equals("")){
+                    cpPhone.setError("Please fill up field");
+                }
+                else if(cpEmail.getText().toString().equals("")){
+                    cpEmail.setError("Please fill up field");
+                }
+                else if(cpAddress.getText().toString().equals("")){
+                    cpAddress.setError("Please fill up field");
+                }
+                // All fields are filled
                 else {
 
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    final SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("LOGGED_IN", true);
 
                     editor.putString("NAME", name.getText().toString());
@@ -69,12 +89,37 @@ public class Introduction extends AppCompatActivity {
                     editor.putString("CP_EMAIL", cpEmail.getText().toString());
                     editor.putString("CP_ADDRESS", cpAddress.getText().toString());
 
+                    String token =sharedPreferences.getString("TOKEN","");
+
                     editor.apply();
+                    UserInfo userInfo = new UserInfo(name.getText().toString(),email.getText().toString(),
+                            Integer.valueOf(phone.getText().toString()), address.getText().toString(),token,cpName.getText().toString(),
+                            cpAddress.getText().toString(),Integer.valueOf(cpPhone.getText().toString()));
+                    Call<UserRegisterResult> call = apiService.registerUser(userInfo);
+                    call.enqueue(new Callback<UserRegisterResult>() {
+                        @Override
+                        public void onResponse(Call<UserRegisterResult> call, Response<UserRegisterResult> response) {
+                            UserRegisterResult userRegisterResult = response.body();
+                            try {
+                                if (userRegisterResult.getSuccess() == 1) {
+                                    editor.putInt("USER_ID", userRegisterResult.getUserId());
+                                    Intent Buttons = new Intent(context, com.example.nikkialonzo.grabahand.Buttons.class);
+                                    startActivityForResult(Buttons , 0);
+                                    finish();
 
+                                }
+                            } catch (Exception e) {
+                            }
+                            editor.apply();
+                        }
 
-                    Intent Buttons = new Intent(v.getContext(), Buttons.class);
-                    startActivityForResult(Buttons , 0);
-                    finish();
+                        @Override
+                        public void onFailure(Call<UserRegisterResult> call, Throwable t) {
+                            Toast.makeText(context, "aw",Toast.LENGTH_SHORT).show();
+                            editor.apply();
+                        }
+                    });
+
                 }
             }
         });

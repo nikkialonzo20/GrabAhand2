@@ -22,6 +22,7 @@ import retrofit2.Response;
 
 public class AdminLogin extends AppCompatActivity {
 
+    // Declare properties
     EditText email;
     EditText password;
     Button login;
@@ -32,16 +33,18 @@ public class AdminLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+        // Bind properties to their view
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.login);
         apiService = new RestClient().getApiService();
 
 
+        // Login button on click
         login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {/*
-                LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString());
+            public void onClick(View v) {
+             LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString());
                 Call<LoginResult> call = apiService.loginUser(loginInfo);
                 call.enqueue(new Callback<LoginResult>() {
                     @Override
@@ -49,9 +52,10 @@ public class AdminLogin extends AppCompatActivity {
                         LoginResult loginResult = response.body();
                         try {
                             if (loginResult.getSuccess() == 1) {
-                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AdminLogin.this);
+                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
+                                editor.putBoolean("LOGGED_IN_ADMIN", true);
                                 editor.putString("ADMIN_NAME", loginResult.getAdmin().getName());
                                 editor.putString("ADMIN_EMAIL", loginResult.getAdmin().getEmail());
                                 editor.putInt("ADMIN_PHONE", loginResult.getAdmin().getPhone());
@@ -59,13 +63,14 @@ public class AdminLogin extends AppCompatActivity {
                                 editor.putInt("JOB_ID", loginResult.getAdmin().getJobId());
                                 editor.apply();
 
-                                Intent intent = new Intent(AdminLogin.this, MapActivity.class);
-                                startActivity(intent);
+                                Toast.makeText(AdminLogin.this, "Success",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(AdminLogin.this, MapActivity.class));
                                 finish();
                             }else{
                                 Toast.makeText(AdminLogin.this, loginResult.getMsg() ,Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
@@ -73,25 +78,15 @@ public class AdminLogin extends AppCompatActivity {
                     public void onFailure(Call<LoginResult> call, Throwable t) {
                         Toast.makeText(AdminLogin.this, "Login Failed.",Toast.LENGTH_SHORT).show();
                     }
-                });*/
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("LOGGED_IN_ADMIN", true);
-                editor.apply();
-                editor.commit();
-
-                Intent intent = new Intent(AdminLogin.this, MapActivity.class);
-                startActivity(intent);
-                finish();
-
-            }
+                }); 
+             }
         });
     }
 
+    // Handling when the user presses the back button
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(AdminLogin.this, MainActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(AdminLogin.this, MainActivity.class));
         finish();
     }
 }

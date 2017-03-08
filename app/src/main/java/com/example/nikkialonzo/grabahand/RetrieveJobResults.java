@@ -8,22 +8,22 @@ import java.util.ArrayList;
 
 public class RetrieveJobResults {
 
-    private int id;
+    private int success;
     private ArrayList<Job> job;
 
-    public int getId() {
-        return id;
+    public int getSuccess() {
+        return success;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSuccess(int success) {
+        this.success = success;
     }
 
-    public ArrayList<Job> getJob() {
+    public ArrayList<Job> getJobs() {
         return job;
     }
 
-    public void setJob(ArrayList<Job> job) {
+    public void setJobs(ArrayList<Job> job) {
         this.job = job;
     }
 }
