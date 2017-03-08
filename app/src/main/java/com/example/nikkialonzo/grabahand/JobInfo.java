@@ -23,7 +23,7 @@ public class JobInfo {
 
     public JobInfo(int userId, int jobId, double lon, double lat, String address) {
         this.userId = userId;
-        this.jobId = jobId;
+        this.jobId = jobId; //1 for hosp, 2 for fire, 3 for police, 4 for mechanic
         this.lon = lon;
         this.lat = lat;
         this.address = address;

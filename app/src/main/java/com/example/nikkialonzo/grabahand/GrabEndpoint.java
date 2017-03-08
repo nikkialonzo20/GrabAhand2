@@ -17,7 +17,7 @@ import retrofit2.http.Path;
 
 public interface GrabEndpoint {
 
-    @POST("/grab/register-user")
+    @POST("/grab/register-user") //postRegisterUser
     Call<UserRegisterResult> registerUser(@Body UserInfo userInfo);
 
     @POST("/grab/submit-job")

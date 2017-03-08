@@ -78,7 +78,7 @@ public class AdminLogin extends AppCompatActivity {
                     public void onFailure(Call<LoginResult> call, Throwable t) {
                         Toast.makeText(AdminLogin.this, "Login Failed.",Toast.LENGTH_SHORT).show();
                     }
-                }); 
+                });
              }
         });
     }

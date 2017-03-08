@@ -1,8 +1,11 @@
 package com.example.nikkialonzo.grabahand;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -286,6 +289,18 @@ public class Buttons extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        registerPingReceiver();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(pingReceiver);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
 
@@ -330,4 +345,18 @@ public class Buttons extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void registerPingReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.my.app.onMessageReceived");
+        registerReceiver(pingReceiver, intentFilter);
+    }
+
+    public BroadcastReceiver pingReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //do something after ping
+        }
+    };
+
 }
