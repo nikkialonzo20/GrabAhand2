@@ -2,7 +2,11 @@ package com.example.nikkialonzo.grabahand;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -112,6 +116,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerPingReceiver();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(pingReceiver);
+    }
+
     //to accept request
 
     private void acceptJob(int id){
@@ -191,4 +207,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
     }
+
+    private void registerPingReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.my.app.onMessageReceived");
+        registerReceiver(pingReceiver, intentFilter);
+    }
+
+    public BroadcastReceiver pingReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //do something after ping
+        }
+    };
 }

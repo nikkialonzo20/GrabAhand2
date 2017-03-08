@@ -14,7 +14,7 @@ public class UserInfo {
     private int phone;
     private String token;
 
-    @SerializedName("cp_name")
+    @SerializedName("cp_name") //camelCase naming convention/
     private String cpName;
 
     @SerializedName("cp_address")
