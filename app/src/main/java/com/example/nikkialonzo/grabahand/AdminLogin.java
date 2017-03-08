@@ -44,7 +44,10 @@ public class AdminLogin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString());
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AdminLogin.this);
+                final SharedPreferences.Editor editor = sharedPreferences.edit();
+                String token = sharedPreferences.getString("TOKEN", "FALSE");
+                LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString(), token);
                 Call<LoginResult> call = apiService.loginUser(loginInfo);
                 call.enqueue(new Callback<LoginResult>() {
                     @Override
@@ -52,10 +55,6 @@ public class AdminLogin extends AppCompatActivity {
                         LoginResult loginResult = response.body();
                         try {
                             if (loginResult.getSuccess() == 1) {
-                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                                editor.putBoolean("LOGGED_IN_ADMIN", true);
                                 editor.putString("ADMIN_NAME", loginResult.getAdmin().getName());
                                 editor.putString("ADMIN_EMAIL", loginResult.getAdmin().getEmail());
                                 editor.putInt("ADMIN_PHONE", loginResult.getAdmin().getPhone());
@@ -78,7 +77,7 @@ public class AdminLogin extends AppCompatActivity {
                     public void onFailure(Call<LoginResult> call, Throwable t) {
                         Toast.makeText(AdminLogin.this, "Login Failed.",Toast.LENGTH_SHORT).show();
                     }
-                }); 
+                });
              }
         });
     }
