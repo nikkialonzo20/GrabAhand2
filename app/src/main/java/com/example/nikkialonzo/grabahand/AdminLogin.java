@@ -44,7 +44,7 @@ public class AdminLogin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString());
+             LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString());
                 Call<LoginResult> call = apiService.loginUser(loginInfo);
                 call.enqueue(new Callback<LoginResult>() {
                     @Override
@@ -78,9 +78,8 @@ public class AdminLogin extends AppCompatActivity {
                     public void onFailure(Call<LoginResult> call, Throwable t) {
                         Toast.makeText(AdminLogin.this, "Login Failed.",Toast.LENGTH_SHORT).show();
                     }
-                });
-
-            }
+                }); 
+             }
         });
     }
 

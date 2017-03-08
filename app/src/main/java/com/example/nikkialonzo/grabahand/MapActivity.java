@@ -78,7 +78,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng SWU = new LatLng(10.3040, 123.8895);
+        LatLng SWU = new LatLng(10.3020, 123.8918);
         googleMap.addMarker(new MarkerOptions().position(SWU)
                 .title("Southwestern University"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SWU, 15.00f));
@@ -89,9 +89,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-        String name = "Name: ";
-        String number = "Phone: ";
-        String email = "Email: ";
+        String name = "Name: John Doe";
+        String number = "Phone: 0943 943 0943";
+        String email = "Email: john@doe.com";
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
         dialog.setTitle("EMERGENCY");
