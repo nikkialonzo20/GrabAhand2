@@ -22,6 +22,7 @@ import retrofit2.Response;
 
 public class AdminLogin extends AppCompatActivity {
 
+    // Declare properties
     EditText email;
     EditText password;
     Button login;
@@ -32,12 +33,14 @@ public class AdminLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+        // Bind properties to their view
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.login);
         apiService = new RestClient().getApiService();
 
 
+        // Login button on click
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,16 +52,20 @@ public class AdminLogin extends AppCompatActivity {
                         LoginResult loginResult = response.body();
                         try {
                             if (loginResult.getSuccess() == 1) {
-                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AdminLogin.this);
+                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
+                                editor.putBoolean("LOGGED_IN_ADMIN", true);
                                 editor.putString("ADMIN_NAME", loginResult.getAdmin().getName());
                                 editor.putString("ADMIN_EMAIL", loginResult.getAdmin().getEmail());
                                 editor.putInt("ADMIN_PHONE", loginResult.getAdmin().getPhone());
                                 editor.putString("INSTITUTION_NAME", loginResult.getAdmin().getInstitutionName());
                                 editor.putInt("JOB_ID", loginResult.getAdmin().getJobId());
                                 editor.apply();
+
                                 Toast.makeText(AdminLogin.this, "Success",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(AdminLogin.this, MapActivity.class));
+                                finish();
                             }else{
                                 Toast.makeText(AdminLogin.this, loginResult.getMsg() ,Toast.LENGTH_SHORT).show();
                             }
@@ -77,6 +84,7 @@ public class AdminLogin extends AppCompatActivity {
         });
     }
 
+    // Handling when the user presses the back button
     @Override
     public void onBackPressed() {
         startActivity(new Intent(AdminLogin.this, MainActivity.class));

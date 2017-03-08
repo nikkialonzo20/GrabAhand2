@@ -22,21 +22,27 @@ import retrofit2.Response;
 
 public class PoliceActivity extends AppCompatActivity {
 
+    // Declare properties
     private Spinner list;
     private GrabEndpoint apiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_police);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PoliceActivity.this);
         final int userId = sharedPreferences.getInt("USER_ID", 0);
         final String address = sharedPreferences.getString("CP_ADDRESS", "");
+
+        // Bind properties to their view
         list = (Spinner) findViewById(R.id.dropStations);
         ArrayAdapter<CharSequence> countryAdapter = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.police_list, R.layout.my_spinner_dropdown);
         list.setAdapter(countryAdapter);
         apiService = new RestClient().getApiService();
+
         Button specificStation = (Button) findViewById(R.id.btnSpecific);
         specificStation.setOnClickListener(new View.OnClickListener() {
             @Override

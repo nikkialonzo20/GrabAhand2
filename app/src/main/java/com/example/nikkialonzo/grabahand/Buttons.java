@@ -24,6 +24,16 @@ import retrofit2.Response;
 public class Buttons extends AppCompatActivity {
 
 
+    // Declare properties
+    Button immediateHospital;
+    Button specificHospital;
+    Button immediateFire;
+    Button specificFire;
+    Button immediatePolice;
+    Button specificPolice;
+    Button immediateMechanic;
+    Button specificMechanic;
+
     private boolean doubleBackToExitPressedOnce = false;
     private GrabEndpoint apiService;
     private int userId;
@@ -39,7 +49,8 @@ public class Buttons extends AppCompatActivity {
         userId = sharedPreferences.getInt("USER_ID", 0);
         address = sharedPreferences.getString("CP_ADDRESS", "");
 
-        Button immediateHospital = (Button) findViewById(R.id.btnImmediateHospital);
+        // Bind properties to their views and set their on click listeners
+        immediateHospital = (Button) findViewById(R.id.btnImmediateHospital);
         immediateHospital.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +96,7 @@ public class Buttons extends AppCompatActivity {
             }
         });
 
-        Button specificHospital = (Button) findViewById(R.id.btnSpecificHospital);
+        specificHospital = (Button) findViewById(R.id.btnSpecificHospital);
         specificHospital.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +106,7 @@ public class Buttons extends AppCompatActivity {
             }
         });
 
-        Button immediateFire = (Button) findViewById(R.id.btnImmediateFire);
+        immediateFire = (Button) findViewById(R.id.btnImmediateFire);
         immediateFire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,7 +153,7 @@ public class Buttons extends AppCompatActivity {
             }
         });
 
-        Button specificFire = (Button) findViewById(R.id.btnSpecificFire);
+        specificFire = (Button) findViewById(R.id.btnSpecificFire);
         specificFire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +164,7 @@ public class Buttons extends AppCompatActivity {
         });
 
 
-        Button immediatePolice = (Button) findViewById(R.id.btnImmediatePolice);
+        immediatePolice = (Button) findViewById(R.id.btnImmediatePolice);
         immediatePolice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,7 +211,7 @@ public class Buttons extends AppCompatActivity {
             }
         });
 
-        Button specificPolice = (Button) findViewById(R.id.btnSpecificPolice);
+        specificPolice = (Button) findViewById(R.id.btnSpecificPolice);
         specificPolice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -210,7 +221,7 @@ public class Buttons extends AppCompatActivity {
             }
         });
 
-        Button immediateMechanic = (Button) findViewById(R.id.btnImmediateMechanic);
+        immediateMechanic = (Button) findViewById(R.id.btnImmediateMechanic);
         immediateMechanic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -257,7 +268,7 @@ public class Buttons extends AppCompatActivity {
             }
         });
 
-        Button specificMechanic = (Button) findViewById(R.id.btnSpecificMechanic);
+        specificMechanic = (Button) findViewById(R.id.btnSpecificMechanic);
         specificMechanic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -22,6 +22,7 @@ import retrofit2.Response;
 
 public class HospitalActivity extends AppCompatActivity {
 
+    // Declare properties
     private Spinner list;
     private GrabEndpoint apiService;
     @Override
@@ -29,17 +30,18 @@ public class HospitalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(HospitalActivity.this);
         final int userId = sharedPreferences.getInt("USER_ID", 0);
         final String address = sharedPreferences.getString("CP_ADDRESS", "");
 
+        // Bind properties to their view
         list = (Spinner) findViewById(R.id.dropStations);
         ArrayAdapter<CharSequence> countryAdapter = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.hospital_list, R.layout.my_spinner_dropdown);
         list.setAdapter(countryAdapter);
 
         apiService = new RestClient().getApiService();
-        final JobInfo jobInfo = new JobInfo(userId, 1,10.3040, 123.8895 ,address);
 
         Button specificStation = (Button) findViewById(R.id.btnSpecific);
         specificStation.setOnClickListener(new View.OnClickListener() {

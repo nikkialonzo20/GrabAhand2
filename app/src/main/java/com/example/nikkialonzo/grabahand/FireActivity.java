@@ -20,6 +20,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FireActivity extends AppCompatActivity {
+
+    // Declare properties
     private Spinner list;
     private GrabEndpoint apiService;
 
@@ -31,12 +33,15 @@ public class FireActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FireActivity.this);
         final int userId = sharedPreferences.getInt("USER_ID", 0);
         final String address = sharedPreferences.getString("CP_ADDRESS", "");
+
+        // Bind properties
         list = (Spinner) findViewById(R.id.dropStations);
         ArrayAdapter<CharSequence> countryAdapter = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.fire_list, R.layout.my_spinner_dropdown);
         list.setAdapter(countryAdapter);
         apiService = new RestClient().getApiService();
         Button specificStation = (Button) findViewById(R.id.btnSpecific);
+
         specificStation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

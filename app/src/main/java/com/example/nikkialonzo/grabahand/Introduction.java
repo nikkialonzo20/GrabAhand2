@@ -48,6 +48,13 @@ public class Introduction extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // Validate fields if empty or not. Cannot proceed if empty
+                validateBeforeLogin();
+            }
+
+            private void validateBeforeLogin() {
+
+                // Check empty fields
                 if(name.getText().toString().equals("")){
                     name.setError("Please fill up field");
                 }
@@ -71,6 +78,7 @@ public class Introduction extends AppCompatActivity {
                 else if(cpAddress.getText().toString().equals("")){
                     cpAddress.setError("Please fill up field");
                 }
+                // All fields are filled
                 else {
 
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -102,7 +110,7 @@ public class Introduction extends AppCompatActivity {
                             try {
                                 if (userRegisterResult.getSuccess() == 1) {
                                     editor.putInt("USER_ID", userRegisterResult.getUserId());
-                                    Intent Buttons = new Intent(context, Buttons.class);
+                                    Intent Buttons = new Intent(context, com.example.nikkialonzo.grabahand.Buttons.class);
                                     startActivityForResult(Buttons , 0);
                                     finish();
 
