@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -120,7 +121,7 @@ public class Introduction extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<UserRegisterResult> call, Throwable t) {
-                            Toast.makeText(context, "aw", Toast.LENGTH_SHORT).show();
+                            Log.d("aw", t.getMessage());
                             editor.apply();
                         }
                     });

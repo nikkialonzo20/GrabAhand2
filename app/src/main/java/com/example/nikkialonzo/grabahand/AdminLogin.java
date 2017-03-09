@@ -38,16 +38,14 @@ public class AdminLogin extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.login);
         apiService = new RestClient().getApiService();
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final String token = sharedPreferences.getString("TOKEN", "false");
 
         // Login button on click
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AdminLogin.this);
-                final SharedPreferences.Editor editor = sharedPreferences.edit();
-                String token = sharedPreferences.getString("TOKEN", "FALSE");
-                LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString(), token);
+             LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString(), token);
                 Call<LoginResult> call = apiService.loginUser(loginInfo);
                 call.enqueue(new Callback<LoginResult>() {
                     @Override
@@ -55,6 +53,8 @@ public class AdminLogin extends AppCompatActivity {
                         LoginResult loginResult = response.body();
                         try {
                             if (loginResult.getSuccess() == 1) {
+
+                                editor.putBoolean("LOGGED_IN_ADMIN", true);
                                 editor.putString("ADMIN_NAME", loginResult.getAdmin().getName());
                                 editor.putString("ADMIN_EMAIL", loginResult.getAdmin().getEmail());
                                 editor.putInt("ADMIN_PHONE", loginResult.getAdmin().getPhone());

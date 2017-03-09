@@ -1,5 +1,7 @@
 package com.example.nikkialonzo.grabahand;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by JONAS on 2/27/2017.
  */
@@ -7,15 +9,17 @@ package com.example.nikkialonzo.grabahand;
 public class SubmitJobResult {
 
     private int success;
-    private int id;
 
-    public int getId() {
-        return id;
+    private JobRequested jobr;
+
+    public JobRequested getJobRequested() {
+        return jobr;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setJobRequested(JobRequested jobr) {
+        this.jobr = jobr;
     }
+
 
     public int getSuccess() {
         return success;
