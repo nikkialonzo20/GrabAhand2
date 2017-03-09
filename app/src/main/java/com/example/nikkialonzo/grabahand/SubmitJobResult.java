@@ -30,17 +30,6 @@ public class SubmitJobResult {
     }
 
 
-    private JobRequested jobr;
-
-    public JobRequested getJobRequested() {
-        return jobr;
-    }
-
-    public void setJobRequested(JobRequested jobr) {
-        this.jobr = jobr;
-    }
-
-
     public int getSuccess() {
         return success;
     }
