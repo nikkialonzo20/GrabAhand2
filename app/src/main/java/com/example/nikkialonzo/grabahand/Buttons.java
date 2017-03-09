@@ -427,7 +427,6 @@ public class Buttons extends AppCompatActivity {
     public BroadcastReceiver pingReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Toast.makeText(context, "hi", Toast.LENGTH_SHORT).show();
             getStatusJobs(userId);
         }
     };
@@ -476,22 +475,60 @@ public class Buttons extends AppCompatActivity {
                 jobRequestedArrayList.get(i).setStatus(jobRequested2.getStatus());
 
                 if(jobRequested2.getStatus() == 1){
+                    String handle = "";
+                    switch (jobRequested2.getJobId()){
+                        case "1":
+                            handle="Nearby Hospital";
+                            break;
+                        case "2":
+                            handle="Nearby Fire station";
+                            break;
+                        case "3":
+                            handle="Nearby Police Station";
+                            break;
+                        case "4":
+                            handle="Nearby Mechanic";
+                            break;
+                        case "100":
+                            handle="Chong Hua Hospital";
+                            break;
+
+                    }
                     dialog.setTitle("UPDATE");
                     dialog.setMessage("Help is on its way for Request ID: "+ jobRequested2.getId() + "\n"
                             + "Name: " + jobRequested2.getName() + "\n"
                             + "Phone: " + jobRequested2.getPhone() + "\n"
                             + "Address: " + jobRequested2.getAddress() + "\n"
+                            + "handled by: " + handle
                     );
                     AlertDialog dialog1 = dialog.create();
                     dialog1.show();
 
                 }else if(jobRequested2.getStatus() == 2){
-
-                    dialog.setTitle("FINISHED");
+                    String handle1 = "";
+                    switch (jobRequested2.getJobId()) {
+                        case "1":
+                            handle1 = "Nearby Hospital";
+                            break;
+                        case "2":
+                            handle1 = "Nearby Fire station";
+                            break;
+                        case "3":
+                            handle1 = "Nearby Police Station";
+                            break;
+                        case "4":
+                            handle1 = "Nearby Mechanic";
+                            break;
+                        case "100":
+                            handle1 = "Chong Hua Hospital";
+                            break;
+                    }
+                        dialog.setTitle("FINISHED");
                     dialog.setMessage("Transaction done for Request ID: "+ jobRequested2.getId() + "\n"
                             + "Name: " + jobRequested2.getName() + "\n"
                             + "Phone: " + jobRequested2.getPhone() + "\n"
                             + "Address: " + jobRequested2.getAddress() + "\n"
+                            + "handled by: " + handle1
                     );
                     AlertDialog dialog1 = dialog.create();
                     dialog1.show();
