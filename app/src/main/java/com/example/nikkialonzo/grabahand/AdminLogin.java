@@ -38,13 +38,14 @@ public class AdminLogin extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.login);
         apiService = new RestClient().getApiService();
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final String token = sharedPreferences.getString("TOKEN", "false");
 
         // Login button on click
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString());
+             LoginInfo loginInfo = new LoginInfo(email.getText().toString(),password.getText().toString(), token);
                 Call<LoginResult> call = apiService.loginUser(loginInfo);
                 call.enqueue(new Callback<LoginResult>() {
                     @Override

@@ -1,5 +1,7 @@
 package com.example.nikkialonzo.grabahand;
 
+import java.util.ArrayList;
+
 /**
  * Created by JONAS on 2/27/2017.
  */
@@ -7,7 +9,8 @@ package com.example.nikkialonzo.grabahand;
 public class JobStatusResult {
 
     private int success;
-    private int status;
+
+    private ArrayList<JobRequested> jobRequested;
 
     public int getSuccess() {
         return success;
@@ -17,11 +20,13 @@ public class JobStatusResult {
         this.success = success;
     }
 
-    public int getStatus() {
-        return status;
+    public ArrayList<JobRequested> getJobRequested() {
+        return jobRequested;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setJobRequested(ArrayList<JobRequested> jobRequested) {
+        this.jobRequested = jobRequested;
     }
+
+
 }

@@ -11,12 +11,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +46,7 @@ public class Buttons extends AppCompatActivity {
     private GrabEndpoint apiService;
     private int userId;
     private String address;
+    private String jobReq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +54,7 @@ public class Buttons extends AppCompatActivity {
         setContentView(R.layout.activity_buttons);
 
         apiService = new RestClient().getApiService();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Buttons.this);
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Buttons.this);
         userId = sharedPreferences.getInt("USER_ID", 0);
         address = sharedPreferences.getString("CP_ADDRESS", "");
         final SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -81,8 +89,24 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                editor.putInt("REQ_ID", submitJobResult.getId());
-                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                                Gson gson = new Gson();
+                                jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
+                                if(jobReq == "FALSE"){
+                                    ArrayList<JobRequested> jobRequestedArrayList = new ArrayList<>();
+                                    jobRequestedArrayList.add(submitJobResult.getJobRequested());
+                                    String json = gson.toJson(jobRequestedArrayList);
+                                    editor.putString("JOBREQ", json);
+                                    editor.commit();
+                                }else{
+                                    Type type = new TypeToken<ArrayList<JobRequested>>(){}.getType();
+                                    ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
+                                    jobRequestedArrayList.add(submitJobResult.getJobRequested());
+                                    String json = gson.toJson(jobRequestedArrayList);
+                                    editor.putString("JOBREQ", json);
+                                    editor.commit();
+                                }
+
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
                             }
@@ -92,7 +116,7 @@ public class Buttons extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<SubmitJobResult> call, Throwable t) {
-                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Buttons.this, "Creating reqaw awauest failed.",Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -140,10 +164,23 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                editor.putInt("REQ_ID", submitJobResult.getId());
-                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
+                                Gson gson = new Gson();
+                                jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
+                                if(jobReq == "FALSE"){
+                                    ArrayList<JobRequested> jobRequestedArrayList = new ArrayList<>();
+                                    jobRequestedArrayList.add(submitJobResult.getJobRequested());
+                                    String json = gson.toJson(jobRequestedArrayList);
+                                    editor.putString("JOBREQ", json);
+                                    editor.commit();
+                                }else{
+                                    Type type = new TypeToken<ArrayList<JobRequested>>(){}.getType();
+                                    ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
+                                    jobRequestedArrayList.add(submitJobResult.getJobRequested());
+                                    String json = gson.toJson(jobRequestedArrayList);
+                                    editor.putString("JOBREQ", json);
+                                    editor.commit();
+                                }
                             }
                         } catch (Exception e) {
                         }
@@ -199,8 +236,23 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                editor.putInt("REQ_ID", submitJobResult.getId());
-                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
+                                Gson gson = new Gson();
+                                jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
+                                if(jobReq == "FALSE"){
+                                    ArrayList<JobRequested> jobRequestedArrayList = new ArrayList<>();
+                                    jobRequestedArrayList.add(submitJobResult.getJobRequested());
+                                    String json = gson.toJson(jobRequestedArrayList);
+                                    editor.putString("JOBREQ", json);
+                                    editor.commit();
+                                }else{
+                                    Type type = new TypeToken<ArrayList<JobRequested>>(){}.getType();
+                                    ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
+                                    jobRequestedArrayList.add(submitJobResult.getJobRequested());
+                                    String json = gson.toJson(jobRequestedArrayList);
+                                    editor.putString("JOBREQ", json);
+                                    editor.commit();
+                                }
                             }else{
                                 Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
                             }
@@ -210,7 +262,7 @@ public class Buttons extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<SubmitJobResult> call, Throwable t) {
-                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Buttons.this, "Creating request awwa failed.",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -257,8 +309,23 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                editor.putInt("REQ_ID", submitJobResult.getId());
-                                Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
+                                Gson gson = new Gson();
+                                jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
+                                if(jobReq == "FALSE"){
+                                    ArrayList<JobRequested> jobRequestedArrayList = new ArrayList<>();
+                                    jobRequestedArrayList.add(submitJobResult.getJobRequested());
+                                    String json = gson.toJson(jobRequestedArrayList);
+                                    editor.putString("JOBREQ", json);
+                                    editor.commit();
+                                }else{
+                                    Type type = new TypeToken<ArrayList<JobRequested>>(){}.getType();
+                                    ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
+                                    jobRequestedArrayList.add(submitJobResult.getJobRequested());
+                                    String json = gson.toJson(jobRequestedArrayList);
+                                    editor.putString("JOBREQ", json);
+                                    editor.commit();
+                                }
                             }else{
                                 Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
                             }
@@ -360,8 +427,81 @@ public class Buttons extends AppCompatActivity {
     public BroadcastReceiver pingReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //do something after ping
+            getStatusJobs(userId);
         }
     };
 
+    private void getStatusJobs(int id){
+        Call<JobStatusResult> call = apiService.checkStatus(id);
+        call.enqueue(new Callback<JobStatusResult>() {
+            @Override
+            public void onResponse(Call<JobStatusResult> call, Response<JobStatusResult> response) {
+                JobStatusResult jobStatusResult = response.body();
+                try {
+                    if (jobStatusResult.getSuccess() == 1) {
+                        showUpdate(jobStatusResult.getJobRequested());
+                    }
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JobStatusResult> call, Throwable t) {
+                Toast.makeText(Buttons.this, "Please try again",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void showUpdate(ArrayList<JobRequested> jobRequesteds) {
+        Gson gson = new Gson();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Buttons.this);
+        SharedPreferences.Editor editor = sp.edit();
+        jobReq = sp.getString("JOBREQ", "FALSE");
+        Type type = new TypeToken<ArrayList<JobRequested>>(){}.getType();
+        ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
+
+
+       AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+        for(int i=0; i< jobRequestedArrayList.size(); i++){
+
+            JobRequested jobRequested1, jobRequested2;
+            jobRequested1 = jobRequestedArrayList.get(i);
+            jobRequested2 = jobRequesteds.get(i);
+
+            if(jobRequested1.getStatus() != jobRequested2.getStatus()){
+
+                jobRequestedArrayList.get(i).setStatus(jobRequested2.getStatus());
+
+                if(jobRequested2.getStatus() == 1){
+                    dialog.setTitle("UPDATE");
+                    dialog.setMessage("Help is on its way for Request ID: "+ jobRequested2.getId() + "\n"
+                            + "Name: " + jobRequested2.getName() + "\n"
+                            + "Phone: " + jobRequested2.getPhone() + "\n"
+                            + "Address: " + jobRequested2.getAddress() + "\n"
+                    );
+                    AlertDialog dialog1 = dialog.create();
+                    dialog1.show();
+
+                }else if(jobRequested2.getStatus() == 2){
+
+                    dialog.setTitle("FINISHED");
+                    dialog.setMessage("Transaction done for Request ID: "+ jobRequested2.getId() + "\n"
+                            + "Name: " + jobRequested2.getName() + "\n"
+                            + "Phone: " + jobRequested2.getPhone() + "\n"
+                            + "Address: " + jobRequested2.getAddress() + "\n"
+                    );
+                    AlertDialog dialog1 = dialog.create();
+                    dialog1.show();
+                }
+                break;
+            }
+        }
+        String json = gson.toJson(jobRequestedArrayList);
+        editor.putString("JOBREQ", json);
+        editor.commit();
+
+
+    }
 }

@@ -161,27 +161,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     //check status of rquest
-    private void getStatusJob(int id){
-        Call<JobStatusResult> call = apiService.checkStatus(id);
-        call.enqueue(new Callback<JobStatusResult>() {
-            @Override
-            public void onResponse(Call<JobStatusResult> call, Response<JobStatusResult> response) {
-                JobStatusResult jobStatusResult = response.body();
-                try {
-                    if (jobStatusResult.getSuccess() == 1) {
-                        //check status of request, 1 for handled 2 for finished.
-                        Toast.makeText(MapActivity.this, String.valueOf(jobStatusResult.getStatus()),Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                }
-            }
 
-            @Override
-            public void onFailure(Call<JobStatusResult> call, Throwable t) {
-                Toast.makeText(MapActivity.this, "lease try again",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     //to click that the rquest is finish request
 
