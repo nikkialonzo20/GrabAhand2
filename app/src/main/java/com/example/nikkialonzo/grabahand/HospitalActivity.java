@@ -59,7 +59,45 @@ public class HospitalActivity extends AppCompatActivity {
                             }
                         });
 
-                JobInfo jobInfo = new JobInfo(userId, 1,10.3040, 123.8895 ,address);
+                int jobId;
+                switch (list.getSelectedItemPosition()){
+                    case 0:     // Chong Hua
+                        jobId = 100;
+                            break;
+                    case 1:     // Philippine Red Cross
+                        jobId = 101;
+                            break;
+                    case 2:     // Sacred Heart Hospital
+                        jobId = 102;
+                            break;
+                    case 3:     // Perpetual Succour Hospital
+                        jobId = 103;
+                            break;
+                    case 4:     // Cebu Doctors University Hospital
+                        jobId = 104;
+                            break;
+                    case 5:     // Cebu Velez General Hospital
+                        jobId = 105;
+                            break;
+                    case 6:     // Cebu City Medical Center
+                        jobId = 106;
+                            break;
+                    case 7:     // Vicente Sotto Medical Center-Cebu City
+                        jobId = 107;
+                            break;
+                    case 8:     // Visayas Community Medical Center
+                        jobId = 108;
+                            break;
+                    case 9:     // Cebu Velez General Hospital
+                        jobId = 109;
+                            break;
+
+                    default: jobId = 0;
+                        break;
+
+                }
+
+                JobInfo jobInfo = new JobInfo(userId, jobId, 10.3040, 123.8895 ,address);
                 Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
                 call.enqueue(new Callback<SubmitJobResult>() {
                     @Override
@@ -68,6 +106,8 @@ public class HospitalActivity extends AppCompatActivity {
                         try {
                             if (submitJobResult.getSuccess() == 1) {
                                 Toast.makeText(HospitalActivity.this, "Request created.",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(HospitalActivity.this, Buttons.class));
+                                finish();
                             }else{
                                 Toast.makeText(HospitalActivity.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
                             }

@@ -66,6 +66,8 @@ public class MechanicActivity extends AppCompatActivity {
                         try {
                             if (submitJobResult.getSuccess() == 1) {
                                 Toast.makeText(MechanicActivity.this, "Request created.",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MechanicActivity.this, Buttons.class));
+                                finish();
                             }else{
                                 Toast.makeText(MechanicActivity.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
                             }

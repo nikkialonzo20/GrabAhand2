@@ -70,6 +70,8 @@ public class FireActivity extends AppCompatActivity {
                         try {
                             if (submitJobResult.getSuccess() == 1) {
                                 Toast.makeText(FireActivity.this, "Request created.",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(FireActivity.this, Buttons.class));
+                                finish();
                             }else{
                                 Toast.makeText(FireActivity.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
                             }

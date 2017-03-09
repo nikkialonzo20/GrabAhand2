@@ -87,16 +87,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(final Marker marker) {
 
-        String name = "";
-        String number = "";
-        String phone = "";
+        String cpName = "";
+        String cpNumber = "";
+        String cpAddress = "";
+        String phoneHolderName = "";
+        String phoneHolderCP = "";
 
         for (int i = 0; i < jobs.size(); i++) {
             Job job = jobs.get(i);
             if (job.getId() == Integer.valueOf(marker.getTitle())) {
-                name = job.getCpName();
-                number = job.getCpAddress();
-                phone = job.getCpPhone();
+                phoneHolderName = job.getName();
+                phoneHolderCP = job.getPhone();
+                cpName = job.getCpName();
+                cpNumber = job.getCpPhone();
+                cpAddress = job.getCpAddress();
             }
         }
 
@@ -104,7 +108,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         final int id = Integer.valueOf(marker.getTitle());
 
         dialog.setTitle("EMERGENCY");
-        dialog.setMessage("Name: " + name + "\n \n" + "Number: " + number + "\n \n" + "Email: " + phone)
+        dialog.setMessage("Name: " + phoneHolderName +
+                        "\nPhone: " + phoneHolderCP +
+                        "\n\nPLEASE CONTACT\n" +
+                        "Contact Person: " + cpName +
+                        "\n" + "Number: " + cpNumber +
+                        "\n" + "Address: " + cpAddress)
                 .setNeutralButton("RESPOND", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

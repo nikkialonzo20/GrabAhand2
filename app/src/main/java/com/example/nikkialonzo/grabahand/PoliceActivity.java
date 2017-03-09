@@ -70,6 +70,8 @@ public class PoliceActivity extends AppCompatActivity {
                         try {
                             if (submitJobResult.getSuccess() == 1) {
                                 Toast.makeText(PoliceActivity.this, "Request created.",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(PoliceActivity.this, Buttons.class));
+                                finish();
                             }else{
                                 Toast.makeText(PoliceActivity.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
                             }
