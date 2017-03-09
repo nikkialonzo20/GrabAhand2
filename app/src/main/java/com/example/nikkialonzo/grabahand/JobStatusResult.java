@@ -1,5 +1,7 @@
 package com.example.nikkialonzo.grabahand;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**
@@ -10,6 +12,7 @@ public class JobStatusResult {
 
     private int success;
 
+    @SerializedName("job_requested")
     private ArrayList<JobRequested> jobRequested;
 
     public int getSuccess() {

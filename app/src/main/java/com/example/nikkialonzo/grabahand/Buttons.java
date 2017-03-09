@@ -106,7 +106,7 @@ public class Buttons extends AppCompatActivity {
                                     editor.commit();
                                 }
 
-                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: "+ submitJobResult.getJobRequested().getId(),Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
                             }
@@ -164,7 +164,7 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: "+ submitJobResult.getJobRequested().getId(),Toast.LENGTH_SHORT).show();
                                 Gson gson = new Gson();
                                 jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
                                 if(jobReq == "FALSE"){
@@ -236,7 +236,7 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: " + submitJobResult.getJobRequested().getId() ,Toast.LENGTH_SHORT).show();
                                 Gson gson = new Gson();
                                 jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
                                 if(jobReq == "FALSE"){
@@ -309,7 +309,7 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: " + submitJobResult.getJobRequested().getId(),Toast.LENGTH_SHORT).show();
                                 Gson gson = new Gson();
                                 jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
                                 if(jobReq == "FALSE"){
