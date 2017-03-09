@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         boolean login = sp.getBoolean("LOGGED_IN", false);
         boolean status = sp.getBoolean("LOGGED_IN_ADMIN", false);
         boolean buttons = sp.getBoolean("FROM_BUTTONS", false);
+        Log.e("main act token: ", sp.getString("TOKEN", "none"));
+        Toast.makeText(context, sp.getString("TOKEN", "none found"), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent();
         if (status) {

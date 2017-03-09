@@ -22,5 +22,6 @@ public class GrabFirebaseInstanceIdService extends FirebaseInstanceIdService{
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("TOKEN", recent_token);
         editor.apply();
+        Log.d("on refresh: ", recent_token);
     }
 }

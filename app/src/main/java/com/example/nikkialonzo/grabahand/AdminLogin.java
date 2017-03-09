@@ -41,6 +41,7 @@ public class AdminLogin extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         final String token = sharedPreferences.getString("TOKEN", "false");
+        Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
 
         // Login button on click
         login.setOnClickListener(new View.OnClickListener() {
