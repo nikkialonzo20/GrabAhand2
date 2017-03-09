@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class RetrieveJobResults {
 
     private int success;
-    private ArrayList<Job> job;
+    private ArrayList<Job> jobs;
 
     public int getSuccess() {
         return success;
@@ -20,10 +20,10 @@ public class RetrieveJobResults {
     }
 
     public ArrayList<Job> getJobs() {
-        return job;
+        return jobs;
     }
 
-    public void setJobs(ArrayList<Job> job) {
-        this.job = job;
+    public void setJobs(ArrayList<Job> jobs) {
+        this.jobs = jobs;
     }
 }
