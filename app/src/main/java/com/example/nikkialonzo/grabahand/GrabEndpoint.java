@@ -35,7 +35,7 @@ public interface GrabEndpoint {
     @GET("/grab/job-status/{id}")
     Call<JobStatusResult> checkStatus(@Path("id") int id);
 
-    @GET("/grab/finish-job/{jid}")
+    @GET("/grab/finish-job/{id}")
     Call<FinishJobResult> finishJob(@Path("id") int id);
 }
 

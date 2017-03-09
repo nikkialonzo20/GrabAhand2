@@ -44,6 +44,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private SharedPreferences sharedPreferences;
     private boolean doubleBackToExitPressedOnce = false;
     private GoogleMap googleMap;
+    private ArrayList<Job> jobs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,31 +58,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         apiService = new RestClient().getApiService();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MapActivity.this);
-        final int jobId = sharedPreferences.getInt("JOB_ID", 0);
-
-        Call<RetrieveJobResults> call = apiService.retrieveJobs(jobId);
-        call.enqueue(new Callback<RetrieveJobResults>() {
-            @Override
-            public void onResponse(Call<RetrieveJobResults> call, Response<RetrieveJobResults> response) {
-                RetrieveJobResults retrieveJobResults = response.body();
-                try {
-                    if (retrieveJobResults.getSuccess() == 1) {
-                        Toast.makeText(MapActivity.this, "Available requests.",Toast.LENGTH_SHORT).show();
-                        ArrayList<Job>  jobs = retrieveJobResults.getJobs(); //jobs ang mga available na requests.
-                    }else{
-                        Toast.makeText(MapActivity.this, "Retrieve failed.",Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RetrieveJobResults> call, Throwable t) {
-                Toast.makeText(MapActivity.this, "Retrieve failed.",Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        retrieveJobs();
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -91,8 +75,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         this.googleMap = googleMap;
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(10.3157, 123.8854), 15.00f));
         this.googleMap.setOnMarkerClickListener(this);
-/*
-        LatLng sunrise = new LatLng(10.2778832,123.8530936);
+
+        /*LatLng sunrise = new LatLng(10.2778832, 123.8530936);
 
         this.googleMap.addMarker(new MarkerOptions().position(sunrise).title("Sunrise"));*/
         retrieveJobs();
@@ -103,18 +87,45 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(final Marker marker) {
 
-        String name = "Name: John Doe";
-        String number = "Phone: 0943 943 0943";
-        String email = "Email: john@doe.com";
+        String name = "";
+        String number = "";
+        String phone = "";
+
+        for (int i = 0; i < jobs.size(); i++) {
+            Job job = jobs.get(i);
+            if (job.getId() == Integer.valueOf(marker.getTitle())) {
+                name = job.getCpName();
+                number = job.getCpAddress();
+                phone = job.getCpPhone();
+            }
+        }
+
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         final int id = Integer.valueOf(marker.getTitle());
 
         dialog.setTitle("EMERGENCY");
-        dialog.setMessage(name + "\n \n" + number + "\n \n" + email)
+        dialog.setMessage("Name: " + name + "\n \n" + "Number: " + number + "\n \n" + "Email: " + phone)
                 .setNeutralButton("RESPOND", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         acceptJob(id);
+
+                        final AlertDialog.Builder dialog = new AlertDialog.Builder(MapActivity.this);
+                        final int id = Integer.valueOf(marker.getTitle());
+
+                        dialog.setTitle("EMERGENCY ASSIGNED");
+                        dialog.setMessage("You are currently assigned to an emergency. Click done ONLY if you are finished.")
+                                .setNeutralButton("DONE", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finishJob(id);
+                                    }
+                                }).setCancelable(false);
+
+                        AlertDialog dialog1 = dialog.create();
+
+
+                        dialog1.show();
                     }
                 });
 
@@ -184,6 +195,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         editor.putInt("JOB_HANDLED", 0);
                         editor.apply();
                         Toast.makeText(MapActivity.this, "Done handling request.", Toast.LENGTH_SHORT).show();
+                        recreate();
                     }
                 } catch (Exception e) {
                 }
@@ -208,12 +220,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 try {
                     if (retrieveJobResults.getSuccess() == 1) {
                         Toast.makeText(MapActivity.this, "Available requests.", Toast.LENGTH_SHORT).show();
-                        ArrayList<Job> jobs = retrieveJobResults.getJobs(); //jobs ang mga available na requests.
+                        jobs = retrieveJobResults.getJobs(); //jobs ang mga available na requests.
 
-                        Log.e("job id: ", jobId+"");
-                        Log.e("jobs: ", jobs.size()+"");
+                        Log.e("job id: ", jobId + "");
+                        Log.e("jobs: ", jobs.size() + "");
                         for (Job job : jobs) {
-                            Log.e("job id", job.getId()+" lat: " + job.getLat() + " long: " + job.getLon());
+                            Log.e("job id", job.getId() + " lat: " + job.getLat() + " long: " + job.getLon());
 
                             LatLng coords = new LatLng(job.getLon(), job.getLat());
                             googleMap.addMarker(new MarkerOptions().position(coords)).setTitle(String.valueOf(job.getId()));
@@ -222,8 +234,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
                     } else {
-                        Toast.makeText(MapActivity.this, "Retrieve failed.", Toast.LENGTH_SHORT).show();
-                    }
+                        Toast.makeText(MapActivity.this, "No requests found.", Toast.LENGTH_SHORT).show();
+                }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -231,12 +243,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onFailure(Call<RetrieveJobResults> call, Throwable t) {
-                Toast.makeText(MapActivity.this, "Retrieve failed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapActivity.this, "Bad connection.", Toast.LENGTH_SHORT).show();
                 String message = t.getMessage();
                 Log.d("failure", message);
             }
         });
-
 
 
     }
@@ -278,8 +289,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             Toast.makeText(context, "received", Toast.LENGTH_SHORT).show();
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-            if(sp.getInt("JOB_HANDLED", 0) == 0)
+            if (sp.getInt("JOB_HANDLED", 0) == 0)
                 retrieveJobs();
+
+            recreate();
         }
     };
 }
