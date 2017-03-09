@@ -7,6 +7,15 @@ package com.example.nikkialonzo.grabahand;
 public class SubmitJobResult {
 
     private int success;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getSuccess() {
         return success;
