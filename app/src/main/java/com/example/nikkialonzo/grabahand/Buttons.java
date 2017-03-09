@@ -49,6 +49,7 @@ public class Buttons extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Buttons.this);
         userId = sharedPreferences.getInt("USER_ID", 0);
         address = sharedPreferences.getString("CP_ADDRESS", "");
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
 
         // Bind properties to their views and set their on click listeners
         immediateHospital = (Button) findViewById(R.id.btnImmediateHospital);
@@ -80,6 +81,7 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
+                                editor.putInt("REQ_ID", submitJobResult.getId());
                                 Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
@@ -138,6 +140,7 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
+                                editor.putInt("REQ_ID", submitJobResult.getId());
                                 Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
@@ -196,6 +199,7 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
+                                editor.putInt("REQ_ID", submitJobResult.getId());
                                 Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
@@ -253,6 +257,7 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
+                                editor.putInt("REQ_ID", submitJobResult.getId());
                                 Toast.makeText(Buttons.this, "Request created.",Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
