@@ -8,10 +8,6 @@ import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-/**
- * Created by JONAS on 2/27/2017.
- */
-
 public class GrabFirebaseInstanceIdService extends FirebaseInstanceIdService{
 
     @Override

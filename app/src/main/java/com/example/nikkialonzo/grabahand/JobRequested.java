@@ -2,9 +2,6 @@ package com.example.nikkialonzo.grabahand;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by JONAS on 3/9/2017.
- */
 
 public class JobRequested {
     private int id;

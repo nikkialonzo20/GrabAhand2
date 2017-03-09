@@ -2,9 +2,7 @@ package com.example.nikkialonzo.grabahand;
 
 import java.util.ArrayList;
 
-/**
- * Created by JONAS on 2/27/2017.
- */
+
 
 public class RetrieveJobResults {
 

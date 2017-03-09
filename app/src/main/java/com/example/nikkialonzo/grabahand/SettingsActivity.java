@@ -11,9 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-/**
- * Created by gerard on 2/20/2017.
- */
+
 
 public class SettingsActivity extends AppCompatActivity {
 

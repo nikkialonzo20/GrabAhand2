@@ -16,9 +16,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by gerard on 2/28/2017.
- */
 
 public class AdminLogin extends AppCompatActivity {
 

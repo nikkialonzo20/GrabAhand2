@@ -1,8 +1,5 @@
 package com.example.nikkialonzo.grabahand;
 
-/**
- * Created by JONAS on 2/27/2017.
- */
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
