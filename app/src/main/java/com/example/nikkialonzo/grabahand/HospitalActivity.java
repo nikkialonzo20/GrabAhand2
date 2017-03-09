@@ -15,6 +15,12 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,7 +36,7 @@ public class HospitalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hospital);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(HospitalActivity.this);
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(HospitalActivity.this);
         final int userId = sharedPreferences.getInt("USER_ID", 0);
         final String address = sharedPreferences.getString("CP_ADDRESS", "");
 
@@ -105,7 +111,24 @@ public class HospitalActivity extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                Toast.makeText(HospitalActivity.this, "Request created.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HospitalActivity.this, "Request created. Please take note of your REQUEST ID: " + submitJobResult.getJobRequested().getId() ,Toast.LENGTH_SHORT).show();
+                                Gson gson = new Gson();
+                                String jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                if(jobReq == "FALSE"){
+                                    ArrayList<JobRequested> jobRequestedArrayList = new ArrayList<>();
+                                    jobRequestedArrayList.add(submitJobResult.getJobRequested());
+                                    String json = gson.toJson(jobRequestedArrayList);
+                                    editor.putString("JOBREQ", json);
+                                    editor.commit();
+                                }else{
+                                    Type type = new TypeToken<ArrayList<JobRequested>>(){}.getType();
+                                    ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
+                                    jobRequestedArrayList.add(submitJobResult.getJobRequested());
+                                    String json = gson.toJson(jobRequestedArrayList);
+                                    editor.putString("JOBREQ", json);
+                                    editor.commit();
+                                }
                                 startActivity(new Intent(HospitalActivity.this, Buttons.class));
                                 finish();
                             }else{

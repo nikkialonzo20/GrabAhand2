@@ -212,7 +212,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onFailure(Call<FinishJobResult> call, Throwable t) {
-                Toast.makeText(MapActivity.this, "lease try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapActivity.this, "please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -287,7 +287,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.my.app.onMessageReceived");
         registerReceiver(pingReceiver, intentFilter);
-        Toast.makeText(getApplicationContext(), "registered", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -295,7 +294,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         @Override
         public void onReceive(Context context, Intent intent) {
             //do something after ping
-            Toast.makeText(context, "received", Toast.LENGTH_SHORT).show();
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
             if (sp.getInt("JOB_HANDLED", 0) == 0)
