@@ -427,6 +427,7 @@ public class Buttons extends AppCompatActivity {
     public BroadcastReceiver pingReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Toast.makeText(context, "hi", Toast.LENGTH_SHORT).show();
             getStatusJobs(userId);
         }
     };

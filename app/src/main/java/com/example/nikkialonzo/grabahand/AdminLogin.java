@@ -39,6 +39,7 @@ public class AdminLogin extends AppCompatActivity {
         login = (Button) findViewById(R.id.login);
         apiService = new RestClient().getApiService();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
         final String token = sharedPreferences.getString("TOKEN", "false");
 
         // Login button on click

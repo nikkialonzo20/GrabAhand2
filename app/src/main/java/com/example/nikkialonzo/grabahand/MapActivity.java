@@ -43,6 +43,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GrabEndpoint apiService;
     private SharedPreferences sharedPreferences;
     private boolean doubleBackToExitPressedOnce = false;
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,26 +87,34 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
        /* LatLng SWU = new LatLng(10.3020, 123.8918);
         googleMap.addMarker(new MarkerOptions().position(SWU)
-                .title("Southwestern University"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SWU, 15.00f));
-        */
-        googleMap.setOnMarkerClickListener(this);
+                .title("Southwestern University"));*/
+        this.googleMap = googleMap;
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(10.3157, 123.8854), 15.00f));
+        this.googleMap.setOnMarkerClickListener(this);
+/*
+        LatLng sunrise = new LatLng(10.2778832,123.8530936);
+
+        this.googleMap.addMarker(new MarkerOptions().position(sunrise).title("Sunrise"));*/
+        retrieveJobs();
+        //LatLng sunrise = new LatLng(10.2778832,123.8530936);
+        //this.googleMap.addMarker(new MarkerOptions().position(sunrise).title("Sunrise"));
     }
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
+    public boolean onMarkerClick(final Marker marker) {
 
         String name = "Name: John Doe";
         String number = "Phone: 0943 943 0943";
         String email = "Email: john@doe.com";
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        final int id = Integer.valueOf(marker.getTitle());
 
         dialog.setTitle("EMERGENCY");
         dialog.setMessage(name + "\n \n" + number + "\n \n" + email)
                 .setNeutralButton("RESPOND", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getApplicationContext(), "A feedback has been sent to the user that help is on the way.", Toast.LENGTH_LONG).show();
+                        acceptJob(id);
                     }
                 });
 
@@ -132,7 +141,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     //to accept request
 
-    private void acceptJob(int id){
+    private void acceptJob(int id) {
         Call<AcceptJobResult> call = apiService.acceptJob(id);
         final int reqId = id;
         final SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -142,30 +151,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 AcceptJobResult acceptJobResult = response.body();
                 try {
                     if (acceptJobResult.getSuccess() == 1) {
-                      //job is accepted and the admin is now heading to
+                        //job is accepted and the admin is now heading to
                         editor.putInt("JOB_HANDLED", reqId);
                         editor.apply();
-
-                    }else{
-                        Toast.makeText(MapActivity.this, "Please try again.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "A feedback has been sent to the user that help is on the way.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MapActivity.this, "Please try again.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
+                    Toast.makeText(MapActivity.this, "Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<AcceptJobResult> call, Throwable t) {
-                Toast.makeText(MapActivity.this, "lease try again",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    //check status of rquest
-
-
     //to click that the rquest is finish request
-
-    private void finishJob(int id){
+    private void finishJob(int id) {
         Call<FinishJobResult> call = apiService.finishJob(id);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         call.enqueue(new Callback<FinishJobResult>() {
@@ -177,7 +183,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         //job is now status 2 and it is finished
                         editor.putInt("JOB_HANDLED", 0);
                         editor.apply();
-                        Toast.makeText(MapActivity.this, "Done handling request.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MapActivity.this, "Done handling request.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                 }
@@ -185,9 +191,54 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onFailure(Call<FinishJobResult> call, Throwable t) {
-                Toast.makeText(MapActivity.this, "lease try again",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapActivity.this, "lease try again", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    private void retrieveJobs() {
+
+        final int jobId = sharedPreferences.getInt("JOB_ID", 0);
+        Call<RetrieveJobResults> call = apiService.retrieveJobs(jobId);
+        call.enqueue(new Callback<RetrieveJobResults>() {
+            @Override
+            public void onResponse(Call<RetrieveJobResults> call, Response<RetrieveJobResults> response) {
+                RetrieveJobResults retrieveJobResults = response.body();
+                try {
+                    if (retrieveJobResults.getSuccess() == 1) {
+                        Toast.makeText(MapActivity.this, "Available requests.", Toast.LENGTH_SHORT).show();
+                        ArrayList<Job> jobs = retrieveJobResults.getJobs(); //jobs ang mga available na requests.
+
+                        Log.e("job id: ", jobId+"");
+                        Log.e("jobs: ", jobs.size()+"");
+                        for (Job job : jobs) {
+                            Log.e("job id", job.getId()+" lat: " + job.getLat() + " long: " + job.getLon());
+
+                            LatLng coords = new LatLng(job.getLon(), job.getLat());
+                            googleMap.addMarker(new MarkerOptions().position(coords)).setTitle(String.valueOf(job.getId()));
+                            Log.e("added", coords.toString());
+                        }
+
+
+                    } else {
+                        Toast.makeText(MapActivity.this, "Retrieve failed.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RetrieveJobResults> call, Throwable t) {
+                Toast.makeText(MapActivity.this, "Retrieve failed.", Toast.LENGTH_SHORT).show();
+                String message = t.getMessage();
+                Log.d("failure", message);
+            }
+        });
+
+
+
     }
 
     @Override
@@ -216,12 +267,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.my.app.onMessageReceived");
         registerReceiver(pingReceiver, intentFilter);
+        Toast.makeText(getApplicationContext(), "registered", Toast.LENGTH_SHORT).show();
+
     }
 
     public BroadcastReceiver pingReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             //do something after ping
+            Toast.makeText(context, "received", Toast.LENGTH_SHORT).show();
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+            if(sp.getInt("JOB_HANDLED", 0) == 0)
+                retrieveJobs();
         }
     };
 }

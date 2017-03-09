@@ -14,7 +14,7 @@ public class Job {
     private String cpName;
 
     @SerializedName("cp_address")
-    private int cpAddress;
+    private String cpAddress;
 
     @SerializedName("cp_phone")
     private String cpPhone;
@@ -47,11 +47,11 @@ public class Job {
         this.cpName = cpName;
     }
 
-    public int getCpAddress() {
+    public String getCpAddress() {
         return cpAddress;
     }
 
-    public void setCpAddress(int cpAddress) {
+    public void setCpAddress(String cpAddress) {
         this.cpAddress = cpAddress;
     }
 

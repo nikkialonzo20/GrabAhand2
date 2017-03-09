@@ -99,8 +99,12 @@ public class Introduction extends AppCompatActivity {
                     String token = sharedPreferences.getString("TOKEN","FALSE");
                     Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
                     UserInfo userInfo = new UserInfo(name.getText().toString(),email.getText().toString(),
-                            Integer.valueOf(phone.getText().toString()), address.getText().toString(),token,cpName.getText().toString(),
-                            cpAddress.getText().toString(),Integer.valueOf(cpPhone.getText().toString()));
+                            Integer.valueOf(phone.getText().toString()),
+                            address.getText().toString(),
+                            token,
+                            cpName.getText().toString(),
+                            cpAddress.getText().toString(),
+                            Integer.valueOf(cpPhone.getText().toString()));
                     Call<UserRegisterResult> call = apiService.registerUser(userInfo);
                     call.enqueue(new Callback<UserRegisterResult>() {
                         @Override
