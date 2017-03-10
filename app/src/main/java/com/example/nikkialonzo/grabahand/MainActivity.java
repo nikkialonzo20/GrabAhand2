@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         boolean status = sp.getBoolean("LOGGED_IN_ADMIN", false);
         boolean buttons = sp.getBoolean("FROM_BUTTONS", false);
         Log.e("main act token: ", sp.getString("TOKEN", "none"));
-        Toast.makeText(context, sp.getString("TOKEN", "none found"), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent();
         if (status) {

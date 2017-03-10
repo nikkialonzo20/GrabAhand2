@@ -81,7 +81,7 @@ public class Buttons extends AppCompatActivity {
                 // show it
                 alertDialog.show();
 
-                JobInfo jobInfo = new JobInfo(userId, 1,10.3040, 123.8895 ,address);
+                JobInfo jobInfo = new JobInfo(userId, 1, 10.3040, 123.8895, address);
                 Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
                 call.enqueue(new Callback<SubmitJobResult>() {
                     @Override
@@ -91,14 +91,15 @@ public class Buttons extends AppCompatActivity {
                             if (submitJobResult.getSuccess() == 1) {
                                 Gson gson = new Gson();
                                 jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
-                                if(jobReq == "FALSE"){
+                                if (jobReq == "FALSE") {
                                     ArrayList<JobRequested> jobRequestedArrayList = new ArrayList<>();
                                     jobRequestedArrayList.add(submitJobResult.getJobRequested());
                                     String json = gson.toJson(jobRequestedArrayList);
                                     editor.putString("JOBREQ", json);
                                     editor.commit();
-                                }else{
-                                    Type type = new TypeToken<ArrayList<JobRequested>>(){}.getType();
+                                } else {
+                                    Type type = new TypeToken<ArrayList<JobRequested>>() {
+                                    }.getType();
                                     ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
                                     jobRequestedArrayList.add(submitJobResult.getJobRequested());
                                     String json = gson.toJson(jobRequestedArrayList);
@@ -106,9 +107,9 @@ public class Buttons extends AppCompatActivity {
                                     editor.commit();
                                 }
 
-                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Buttons.this, "Creating request failed.", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                         }
@@ -116,7 +117,7 @@ public class Buttons extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<SubmitJobResult> call, Throwable t) {
-                        Toast.makeText(Buttons.this, "Creating reqaw awauest failed.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Buttons.this, "Creating reqaw awauest failed.", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -156,7 +157,7 @@ public class Buttons extends AppCompatActivity {
                 // show it
                 alertDialog.show();
 
-                JobInfo jobInfo = new JobInfo(userId, 2,10.3040, 123.8895 ,address);
+                JobInfo jobInfo = new JobInfo(userId, 2, 10.3040, 123.8895, address);
                 Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
                 call.enqueue(new Callback<SubmitJobResult>() {
                     @Override
@@ -164,17 +165,18 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ", Toast.LENGTH_SHORT).show();
                                 Gson gson = new Gson();
                                 jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
-                                if(jobReq == "FALSE"){
+                                if (jobReq == "FALSE") {
                                     ArrayList<JobRequested> jobRequestedArrayList = new ArrayList<>();
                                     jobRequestedArrayList.add(submitJobResult.getJobRequested());
                                     String json = gson.toJson(jobRequestedArrayList);
                                     editor.putString("JOBREQ", json);
                                     editor.commit();
-                                }else{
-                                    Type type = new TypeToken<ArrayList<JobRequested>>(){}.getType();
+                                } else {
+                                    Type type = new TypeToken<ArrayList<JobRequested>>() {
+                                    }.getType();
                                     ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
                                     jobRequestedArrayList.add(submitJobResult.getJobRequested());
                                     String json = gson.toJson(jobRequestedArrayList);
@@ -188,7 +190,7 @@ public class Buttons extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<SubmitJobResult> call, Throwable t) {
-                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Buttons.this, "Creating request failed.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -228,7 +230,7 @@ public class Buttons extends AppCompatActivity {
                 // show it
                 alertDialog.show();
 
-                JobInfo jobInfo = new JobInfo(userId, 3,10.3040, 123.8895 ,address);
+                JobInfo jobInfo = new JobInfo(userId, 3, 10.3040, 123.8895, address);
                 Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
                 call.enqueue(new Callback<SubmitJobResult>() {
                     @Override
@@ -236,25 +238,26 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ", Toast.LENGTH_SHORT).show();
                                 Gson gson = new Gson();
                                 jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
-                                if(jobReq == "FALSE"){
+                                if (jobReq == "FALSE") {
                                     ArrayList<JobRequested> jobRequestedArrayList = new ArrayList<>();
                                     jobRequestedArrayList.add(submitJobResult.getJobRequested());
                                     String json = gson.toJson(jobRequestedArrayList);
                                     editor.putString("JOBREQ", json);
                                     editor.commit();
-                                }else{
-                                    Type type = new TypeToken<ArrayList<JobRequested>>(){}.getType();
+                                } else {
+                                    Type type = new TypeToken<ArrayList<JobRequested>>() {
+                                    }.getType();
                                     ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
                                     jobRequestedArrayList.add(submitJobResult.getJobRequested());
                                     String json = gson.toJson(jobRequestedArrayList);
                                     editor.putString("JOBREQ", json);
                                     editor.commit();
                                 }
-                            }else{
-                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Buttons.this, "Creating request failed.", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                         }
@@ -262,7 +265,7 @@ public class Buttons extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<SubmitJobResult> call, Throwable t) {
-                        Toast.makeText(Buttons.this, "Creating request awwa failed.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Buttons.this, "Creating request awwa failed.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -301,7 +304,7 @@ public class Buttons extends AppCompatActivity {
                 // show it
                 alertDialog.show();
 
-                JobInfo jobInfo = new JobInfo(userId, 4,10.3040, 123.8895 ,address);
+                JobInfo jobInfo = new JobInfo(userId, 4, 10.3040, 123.8895, address);
                 Call<SubmitJobResult> call = apiService.registerJob(jobInfo);
                 call.enqueue(new Callback<SubmitJobResult>() {
                     @Override
@@ -309,25 +312,26 @@ public class Buttons extends AppCompatActivity {
                         SubmitJobResult submitJobResult = response.body();
                         try {
                             if (submitJobResult.getSuccess() == 1) {
-                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Buttons.this, "Request created. Please take note of your REQUEST ID: ", Toast.LENGTH_SHORT).show();
                                 Gson gson = new Gson();
                                 jobReq = sharedPreferences.getString("JOBREQ", "FALSE");
-                                if(jobReq == "FALSE"){
+                                if (jobReq == "FALSE") {
                                     ArrayList<JobRequested> jobRequestedArrayList = new ArrayList<>();
                                     jobRequestedArrayList.add(submitJobResult.getJobRequested());
                                     String json = gson.toJson(jobRequestedArrayList);
                                     editor.putString("JOBREQ", json);
                                     editor.commit();
-                                }else{
-                                    Type type = new TypeToken<ArrayList<JobRequested>>(){}.getType();
+                                } else {
+                                    Type type = new TypeToken<ArrayList<JobRequested>>() {
+                                    }.getType();
                                     ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
                                     jobRequestedArrayList.add(submitJobResult.getJobRequested());
                                     String json = gson.toJson(jobRequestedArrayList);
                                     editor.putString("JOBREQ", json);
                                     editor.commit();
                                 }
-                            }else{
-                                Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Buttons.this, "Creating request failed.", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                         }
@@ -335,7 +339,7 @@ public class Buttons extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<SubmitJobResult> call, Throwable t) {
-                        Toast.makeText(Buttons.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Buttons.this, "Creating request failed.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -427,12 +431,11 @@ public class Buttons extends AppCompatActivity {
     public BroadcastReceiver pingReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Toast.makeText(context, "hi", Toast.LENGTH_SHORT).show();
             getStatusJobs(userId);
         }
     };
 
-    private void getStatusJobs(int id){
+    private void getStatusJobs(int id) {
         Call<JobStatusResult> call = apiService.checkStatus(id);
         call.enqueue(new Callback<JobStatusResult>() {
             @Override
@@ -448,7 +451,7 @@ public class Buttons extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JobStatusResult> call, Throwable t) {
-                Toast.makeText(Buttons.this, "Please try again",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Buttons.this, "Please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -463,7 +466,7 @@ public class Buttons extends AppCompatActivity {
         ArrayList<JobRequested> jobRequestedArrayList = gson.fromJson(jobReq, type);
 
 
-       AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
         for(int i=0; i< jobRequestedArrayList.size(); i++){
 
@@ -476,27 +479,92 @@ public class Buttons extends AppCompatActivity {
                 jobRequestedArrayList.get(i).setStatus(jobRequested2.getStatus());
 
                 if(jobRequested2.getStatus() == 1){
+                    String handle = "";
+                    switch (jobRequested2.getJobId()){
+                        case "1":
+                            handle="Nearby Hospital";
+                            break;
+                        case "2":
+                            handle="Nearby Fire station";
+                            break;
+                        case "3":
+                            handle="Nearby Police Station";
+                            break;
+                        case "4":
+                            handle="Nearby Mechanic";
+                            break;
+                        case "100":
+                            handle="Chong Hua Hospital";
+                            break;
+
+                    }
                     dialog.setTitle("UPDATE");
                     dialog.setMessage("Help is on its way for Request ID: "+ jobRequested2.getId() + "\n"
                             + "Name: " + jobRequested2.getName() + "\n"
                             + "Phone: " + jobRequested2.getPhone() + "\n"
                             + "Address: " + jobRequested2.getAddress() + "\n"
+                            + "handled by: " + handle
                     );
                     AlertDialog dialog1 = dialog.create();
                     dialog1.show();
 
                 }else if(jobRequested2.getStatus() == 2){
-
+                    String handle1 = "";
+                    switch (jobRequested2.getJobId()) {
+                        case "1":
+                            handle1 = "Nearby Hospital";
+                            break;
+                        case "2":
+                            handle1 = "Nearby Fire station";
+                            break;
+                        case "3":
+                            handle1 = "Nearby Police Station";
+                            break;
+                        case "4":
+                            handle1 = "Nearby Mechanic";
+                            break;
+                        case "100":
+                            handle1 = "Chong Hua Hospital";
+                            break;
+                    }
                     dialog.setTitle("FINISHED");
                     dialog.setMessage("Transaction done for Request ID: "+ jobRequested2.getId() + "\n"
                             + "Name: " + jobRequested2.getName() + "\n"
                             + "Phone: " + jobRequested2.getPhone() + "\n"
                             + "Address: " + jobRequested2.getAddress() + "\n"
+                            + "handled by: " + handle1
+                    );
+                    AlertDialog dialog1 = dialog.create();
+                    dialog1.show();
+                }else if(jobRequested2.getStatus() == 3){
+                    String handle1 = "";
+                    switch (jobRequested2.getJobId()) {
+                        case "1":
+                            handle1 = "Nearby Hospital";
+                            break;
+                        case "2":
+                            handle1 = "Nearby Fire station";
+                            break;
+                        case "3":
+                            handle1 = "Nearby Police Station";
+                            break;
+                        case "4":
+                            handle1 = "Nearby Mechanic";
+                            break;
+                        case "100":
+                            handle1 = "Chong Hua Hospital";
+                            break;
+                    }
+                    dialog.setTitle("DECLINED");
+                    dialog.setMessage("Transaction is declined Request ID: "+ jobRequested2.getId() + "\n"
+                            + "Name: " + jobRequested2.getName() + "\n"
+                            + "Phone: " + jobRequested2.getPhone() + "\n"
+                            + "Address: " + jobRequested2.getAddress() + "\n"
+                            + "handled by: " + handle1
                     );
                     AlertDialog dialog1 = dialog.create();
                     dialog1.show();
                 }
-                break;
             }
         }
         String json = gson.toJson(jobRequestedArrayList);

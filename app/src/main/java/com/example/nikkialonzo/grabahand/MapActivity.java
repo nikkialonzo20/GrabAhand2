@@ -109,14 +109,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         dialog.setTitle("EMERGENCY");
         dialog.setMessage("Name: " + phoneHolderName +
-                        "\nPhone: " + phoneHolderCP +
-                        "\n\nPLEASE CONTACT\n" +
-                        "Contact Person: " + cpName +
-                        "\n" + "Number: " + cpNumber +
-                        "\n" + "Address: " + cpAddress)
-                .setNeutralButton("RESPOND", new DialogInterface.OnClickListener() {
+                "\nPhone: " + phoneHolderCP +
+                "\n\nPLEASE CONTACT\n" +
+                "Contact Person: " + cpName +
+                "\n" + "Number: " + cpNumber +
+                "\n" + "Address: " + cpAddress)
+                .setPositiveButton("RESPOND", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        // Accept job
                         acceptJob(id);
 
                         final AlertDialog.Builder dialog = new AlertDialog.Builder(MapActivity.this);
@@ -136,14 +137,35 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         dialog1.show();
                     }
+                })
+                .setNegativeButton("DECLINE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        // Decline Job
+                        denyJob(id);
+
+                        final AlertDialog.Builder dialog = new AlertDialog.Builder(MapActivity.this);
+                        final int id = Integer.valueOf(marker.getTitle());
+
+                        dialog.setTitle("EMERGENCY DECLINED");
+                        dialog.setMessage("You are have declined this emergency and the user is notified that you cannot handle this request.")
+                                .setNeutralButton("DONE", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //finishJob(id);
+                                    }
+                                }).setCancelable(false);
+
+                        AlertDialog dialog1 = dialog.create();
+                        dialog1.show();
+                    }
                 });
 
         AlertDialog dialog1 = dialog.create();
 
-
         dialog1.show();
         return true;
-
 
     }
 
@@ -160,7 +182,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     //to accept request
-
     private void acceptJob(int id) {
         Call<AcceptJobResult> call = apiService.acceptJob(id);
         final int reqId = id;
@@ -185,6 +206,36 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onFailure(Call<AcceptJobResult> call, Throwable t) {
+                Toast.makeText(MapActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    //to deny request
+    private void denyJob(int id) {
+        Call<DeclineJobResult> call = apiService.declineJob(id);
+        final int reqId = id;
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        call.enqueue(new Callback<DeclineJobResult>() {
+            @Override
+            public void onResponse(Call<DeclineJobResult> call, Response<DeclineJobResult> response) {
+                DeclineJobResult declineJobResult = response.body();
+                try {
+                    if (declineJobResult.getSuccess() == 1) {
+                        //job is accepted and the admin is now heading to
+                        editor.putInt("JOB_HANDLED", reqId);
+                        editor.apply();
+                        Toast.makeText(getApplicationContext(), "A feedback has been sent to the user that help is on the way.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MapActivity.this, "Please try again.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MapActivity.this, "Please try again.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeclineJobResult> call, Throwable t) {
                 Toast.makeText(MapActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
             }
         });
@@ -228,7 +279,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 RetrieveJobResults retrieveJobResults = response.body();
                 try {
                     if (retrieveJobResults.getSuccess() == 1) {
-                        Toast.makeText(MapActivity.this, "Available requests.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MapActivity.this, "Available requests", Toast.LENGTH_SHORT).show();
                         jobs = retrieveJobResults.getJobs(); //jobs ang mga available na requests.
 
                         Log.e("job id: ", jobId + "");
@@ -244,7 +295,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     } else {
                         Toast.makeText(MapActivity.this, "No requests found.", Toast.LENGTH_SHORT).show();
-                }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -287,7 +338,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.my.app.onMessageReceived");
         registerReceiver(pingReceiver, intentFilter);
-        Toast.makeText(getApplicationContext(), "registered", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -295,7 +345,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         @Override
         public void onReceive(Context context, Intent intent) {
             //do something after ping
-            Toast.makeText(context, "received", Toast.LENGTH_SHORT).show();
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
             if (sp.getInt("JOB_HANDLED", 0) == 0)

@@ -97,7 +97,6 @@ public class Introduction extends AppCompatActivity {
 
                     editor.apply();
                     String token = sharedPreferences.getString("TOKEN","FALSE");
-                    Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
                     UserInfo userInfo = new UserInfo(name.getText().toString(),email.getText().toString(),
                             Integer.valueOf(phone.getText().toString()),
                             address.getText().toString(),
