@@ -532,6 +532,34 @@ public class Buttons extends AppCompatActivity {
                     );
                     AlertDialog dialog1 = dialog.create();
                     dialog1.show();
+                }else if(jobRequested2.getStatus() == 3){
+                    String handle1 = "";
+                    switch (jobRequested2.getJobId()) {
+                        case "1":
+                            handle1 = "Nearby Hospital";
+                            break;
+                        case "2":
+                            handle1 = "Nearby Fire station";
+                            break;
+                        case "3":
+                            handle1 = "Nearby Police Station";
+                            break;
+                        case "4":
+                            handle1 = "Nearby Mechanic";
+                            break;
+                        case "100":
+                            handle1 = "Chong Hua Hospital";
+                            break;
+                    }
+                    dialog.setTitle("DECLINED");
+                    dialog.setMessage("Transaction declined for Request ID: "+ jobRequested2.getId() + "\n"
+                            + "Name: " + jobRequested2.getName() + "\n"
+                            + "Phone: " + jobRequested2.getPhone() + "\n"
+                            + "Address: " + jobRequested2.getAddress() + "\n"
+                            + "by: " + handle1
+                    );
+                    AlertDialog dialog1 = dialog.create();
+                    dialog1.show();
                 }
                 break;
             }
