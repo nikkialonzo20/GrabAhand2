@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClient {
 
-    private static final String BASE_URL = "http://192.163.1.120:8000";
+    private static final String BASE_URL = "http://192.168.137.249:8000";
     private GrabEndpoint apiService;
 
     public RestClient() {

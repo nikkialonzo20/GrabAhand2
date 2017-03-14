@@ -89,7 +89,6 @@ public class Introduction extends AppCompatActivity {
                     editor.putString("EMAIL", email.getText().toString());
                     editor.putString("ADDRESS", address.getText().toString());
 
-
                     editor.putString("CP_NAME", cpName.getText().toString());
                     editor.putString("CP_PHONE", cpPhone.getText().toString());
                     editor.putString("CP_EMAIL", cpEmail.getText().toString());
@@ -98,12 +97,12 @@ public class Introduction extends AppCompatActivity {
                     editor.apply();
                     String token = sharedPreferences.getString("TOKEN","FALSE");
                     UserInfo userInfo = new UserInfo(name.getText().toString(),email.getText().toString(),
-                            Integer.valueOf(phone.getText().toString()),
+                            phone.getText().toString(),
                             address.getText().toString(),
                             token,
                             cpName.getText().toString(),
                             cpAddress.getText().toString(),
-                            Integer.valueOf(cpPhone.getText().toString()));
+                            cpPhone.getText().toString());
                     Call<UserRegisterResult> call = apiService.registerUser(userInfo);
                     call.enqueue(new Callback<UserRegisterResult>() {
                         @Override

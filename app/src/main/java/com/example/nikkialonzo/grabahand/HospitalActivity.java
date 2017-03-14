@@ -62,6 +62,8 @@ public class HospitalActivity extends AppCompatActivity {
                         .setNeutralButton("Okay",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
+                                startActivity(new Intent(HospitalActivity.this, Buttons.class));
+                                finish();
                             }
                         });
 
@@ -129,8 +131,6 @@ public class HospitalActivity extends AppCompatActivity {
                                     editor.putString("JOBREQ", json);
                                     editor.commit();
                                 }
-                                startActivity(new Intent(HospitalActivity.this, Buttons.class));
-                                finish();
                             }else{
                                 Toast.makeText(HospitalActivity.this, "Creating request failed.",Toast.LENGTH_SHORT).show();
                             }

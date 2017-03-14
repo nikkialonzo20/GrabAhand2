@@ -150,6 +150,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         //finishJob(id);
+                                        recreate();
                                     }
                                 }).setCancelable(false);
 
@@ -221,7 +222,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         //job is accepted and the admin is now heading to
                         editor.putInt("JOB_HANDLED", reqId);
                         editor.apply();
-                        Toast.makeText(getApplicationContext(), "A feedback has been sent to the user that help is on the way.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "A feedback has been sent to the user that you cannot handle this request.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(MapActivity.this, "Please try again.", Toast.LENGTH_SHORT).show();
                     }
