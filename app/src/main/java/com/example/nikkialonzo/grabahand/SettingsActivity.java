@@ -55,7 +55,6 @@ public class SettingsActivity extends AppCompatActivity {
 
                 editor.putString("CP_NAME", cpName.getText().toString());
                 editor.putString("CP_PHONE", cpPhone.getText().toString());
-                editor.putString("CP_EMAIL", cpEmail.getText().toString());
                 editor.putString("CP_ADDRESS", cpAddress.getText().toString());
 
                 editor.apply();
@@ -85,7 +84,6 @@ public class SettingsActivity extends AppCompatActivity {
         // Fields for user's contact person
         EditText cpName = (EditText) findViewById(R.id.edtContactPersonName);
         EditText cpPhone = (EditText) findViewById(R.id.edtContactPersonPhone);
-        EditText cpEmail = (EditText) findViewById(R.id.edtContactPersonEmail);
         EditText cpAddress = (EditText) findViewById(R.id.edtContactPersonAddress);
 
         name.setText(sharedPreferences.getString("NAME", ""));
@@ -94,7 +92,6 @@ public class SettingsActivity extends AppCompatActivity {
         address.setText(sharedPreferences.getString("ADDRESS", ""));
         cpName.setText(sharedPreferences.getString("CP_NAME", ""));
         cpPhone.setText(sharedPreferences.getString("CP_PHONE", ""));
-        cpEmail.setText(sharedPreferences.getString("CP_EMAIL", ""));
         cpAddress.setText(sharedPreferences.getString("CP_ADDRESS", ""));
     }
 

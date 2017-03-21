@@ -60,15 +60,11 @@
     </string-array>
 
     <string-array name="hospital_list">
-        <item>Chong Hua Hospital</item>
-        <item>Philippine Red Cross</item>
         <item>Sacred Heart Hospital</item>
-        <item>Perpetual Succour Hospital</item>
-        <item>Cebu Doctors University Hospital</item>
-        <item>Cebu Velez General Hospital</item>
-        <item>Cebu City Medical Center</item>
-        <item>Vicente Sotto Medical Center-Cebu City</item>
         <item>Visayas Community Medical Center</item>
+        <item>Chong Hua Hospital</item>
+        <item>Cebu Doctors University Hospital</item>
+        <item>Perpetual Succour Hospital</item>
     </string-array>
 
     <string-array name="fire_list">

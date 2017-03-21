@@ -2,6 +2,7 @@ package com.example.nikkialonzo.grabahand;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,11 +12,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +35,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,7 +49,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private boolean doubleBackToExitPressedOnce = false;
     private GoogleMap googleMap;
     private ArrayList<Job> jobs;
+    private List<JobItem> jobItemList = new ArrayList<>();
 
+    private DrawerLayout mDrawerLayout;
+    private JobAdapter adapter;
+    private ListView mDrawerList;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,35 +61,59 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
+
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         apiService = new RestClient().getApiService();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MapActivity.this);
+
+
+
+
     }
 
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    private void selectItem(int position) {
+
+        for (int i = 0; i < jobs.size(); i++) {
+             Job job = jobs.get(i);
+            if( jobItemList.get(position).getId() == job.getId() ) {
+                LatLng coords = new LatLng(job.getLon(), job.getLat());
+                googleMap.addMarker(new MarkerOptions().position(coords)).setTitle(String.valueOf(job.getId()));
+            }
+        }
+
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
         retrieveJobs();
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        jobItemList.add(new JobItem(0, ""));
+        adapter = new JobAdapter(this, R.layout.job_layout, jobItemList);
+
+        mDrawerList.setAdapter(adapter);
+
+        // Set the list's click listener
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-       /* LatLng SWU = new LatLng(10.3020, 123.8918);
-        googleMap.addMarker(new MarkerOptions().position(SWU)
-                .title("Southwestern University"));*/
         this.googleMap = googleMap;
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(10.3157, 123.8854), 15.00f));
         this.googleMap.setOnMarkerClickListener(this);
-
-        /*LatLng sunrise = new LatLng(10.2778832, 123.8530936);
-
-        this.googleMap.addMarker(new MarkerOptions().position(sunrise).title("Sunrise"));*/
-        retrieveJobs();
-        //LatLng sunrise = new LatLng(10.2778832,123.8530936);
-        //this.googleMap.addMarker(new MarkerOptions().position(sunrise).title("Sunrise"));
     }
 
     @Override
@@ -260,14 +296,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onFailure(Call<FinishJobResult> call, Throwable t) {
-                Toast.makeText(MapActivity.this, "lease try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
 
     private void retrieveJobs() {
-
+        jobItemList.clear();
         final int jobId = sharedPreferences.getInt("JOB_ID", 0);
         Call<RetrieveJobResults> call = apiService.retrieveJobs(jobId);
         call.enqueue(new Callback<RetrieveJobResults>() {
@@ -281,14 +317,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         Log.e("job id: ", jobId + "");
                         Log.e("jobs: ", jobs.size() + "");
+                        //int i = 0;
                         for (Job job : jobs) {
-                            Log.e("job id", job.getId() + " lat: " + job.getLat() + " long: " + job.getLon());
-
+                            //Log.e("job id", job.getId() + " lat: " + job.getLat() + " long: " + job.getLon());
                             LatLng coords = new LatLng(job.getLon(), job.getLat());
-                            googleMap.addMarker(new MarkerOptions().position(coords)).setTitle(String.valueOf(job.getId()));
+                            jobItemList.add(new JobItem(job.getId(), job.getName()));
+                            //adapter.add(new JobItem(job.getId(), job.getName()));
+                            //googleMap.addMarker(new MarkerOptions().position(coords)).setTitle(String.valueOf(job.getId()));
+                            //stringJobs[i] = "ID: [" + job.getId() + "]  \nUser: " + job.getName() + "\nStatus: " + status;
                             Log.e("added", coords.toString());
+                            //Log.d("hey", jobItemList.get(i).getName());
+                            //i++;
                         }
 
+                        Log.d("item list: ", jobItemList.toString());
 
                     } else {
                         Toast.makeText(MapActivity.this, "No requests found.", Toast.LENGTH_SHORT).show();

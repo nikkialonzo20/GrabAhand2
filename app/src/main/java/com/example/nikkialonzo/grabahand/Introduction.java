@@ -41,7 +41,7 @@ public class Introduction extends AppCompatActivity {
             // Fields for user's contact person
              EditText cpName = (EditText) findViewById(R.id.edtContactPersonName);
              EditText cpPhone = (EditText) findViewById(R.id.edtContactPersonPhone);
-             EditText cpEmail = (EditText) findViewById(R.id.edtContactPersonEmail);
+             //EditText cpEmail = (EditText) findViewById(R.id.edtContactPersonEmail);
              EditText cpAddress = (EditText) findViewById(R.id.edtContactPersonAddress);
 
             @Override
@@ -71,9 +71,6 @@ public class Introduction extends AppCompatActivity {
                 else if(cpPhone.getText().toString().equals("")){
                     cpPhone.setError("Please fill up field");
                 }
-                else if(cpEmail.getText().toString().equals("")){
-                    cpEmail.setError("Please fill up field");
-                }
                 else if(cpAddress.getText().toString().equals("")){
                     cpAddress.setError("Please fill up field");
                 }
@@ -82,21 +79,20 @@ public class Introduction extends AppCompatActivity {
 
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                     final SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("LOGGED_IN", true);
 
                     editor.putString("NAME", name.getText().toString());
-                    editor.putString("PHONE", phone.getText().toString());
                     editor.putString("EMAIL", email.getText().toString());
+                    editor.putString("PHONE", phone.getText().toString());
                     editor.putString("ADDRESS", address.getText().toString());
 
                     editor.putString("CP_NAME", cpName.getText().toString());
                     editor.putString("CP_PHONE", cpPhone.getText().toString());
-                    editor.putString("CP_EMAIL", cpEmail.getText().toString());
                     editor.putString("CP_ADDRESS", cpAddress.getText().toString());
 
                     editor.apply();
                     String token = sharedPreferences.getString("TOKEN","FALSE");
-                    UserInfo userInfo = new UserInfo(name.getText().toString(),email.getText().toString(),
+                    UserInfo userInfo = new UserInfo(name.getText().toString(),
+                            email.getText().toString(),
                             phone.getText().toString(),
                             address.getText().toString(),
                             token,
@@ -110,11 +106,11 @@ public class Introduction extends AppCompatActivity {
                             UserRegisterResult userRegisterResult = response.body();
                             try {
                                 if (userRegisterResult.getSuccess() == 1) {
+                                    editor.putBoolean("LOGGED_IN", true);
                                     editor.putInt("USER_ID", userRegisterResult.getUserId());
                                     Intent Buttons = new Intent(context, Buttons.class);
                                     startActivityForResult(Buttons , 0);
                                     finish();
-
                                 }
                             } catch (Exception e) {
                             }
